@@ -1,30 +1,26 @@
 {
-  "name": "node-handlebars-boilerplate",
+  "name": "Login-Practice",
   "version": "1.0.0",
-  "description": "Project2Beta",
-  "main": "server.js",
+  "description": "",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js",
-    "lint": "eslint --quiet .",
-    "fix": "eslint --fix .",
-    "test": "npm run lint && cross-env NODE_ENV=test mocha -u tdd --reporter spec --exit"
+    "devStart": "nodemon server.js"
   },
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^8.0.0",
-    "express": "^4.17.0",
-    "express-handlebars": "^3.1.0",
-    "mysql2": "^1.6.5",
-    "sequelize": "^5.8.6"
+    "bcrypt": "^3.0.7",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.0",
+    "method-override": "^3.0.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "cross-env": "^5.2.0",
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "mocha": "^6.1.4",
-    "prettier": "^1.17.1"
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2"
   }
 }

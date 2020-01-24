@@ -1,0 +1,118 @@
+@font-face {
+  font-family: 'SfHollywoodHills-aPxE' ;
+  src: url(../fonts/shyfoundry_sf-hollywood-hills/SfHollywoodHills-aPxE.ttf) format('truetype')
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: url(../images/congruent_outline.png);
+}
+
+#inputs, #outputs {
+  padding: 20px;
+  background: #e9ecef;
+  height: 100%;
+}
+
+#inputs { 
+  display: flex; 
+  justify-content: space-evenly;
+}
+
+#outputs {
+  text-align: center;
+  font-family: 'SfHollywoodHills-aPxE';
+  font-size: 24px;
+}
+
+#top-nav {
+  display: flex; 
+  justify-content: space-evenly;
+}
+
+.login, .logout {
+  display: flex; 
+  justify-content: flex-end;
+}
+
+h1, h3 {
+  text-align: center;
+  font-family: 'SfHollywoodHills-aPxE';
+}
+
+nav {
+  background-color: #8e44ad;
+}
+
+.login-text {
+  font-family: 'SfHollywoodHills-aPxE';
+}
+
+#modal-text {
+  color: black;
+  font-size: 24px;
+  font-family: 'SfHollywoodHills-aPxE';
+}
+
+.jumbotron {
+  margin-top: 30px;
+}
+
+form {
+  font-family: 'SfHollywoodHills-aPxE';
+  font-size: 20px;
+  flex-grow: 1;
+}
+
+select {
+  font-family: sans-serif;
+}
+
+.btn {
+  color: #ffffff;
+  font-size: 24px;
+  background-color: #8e44ad;
+  border-color: #8e44ad;
+
+}
+
+.btn-info {
+  color: #ffffff;
+  font-family: 'SfHollywoodHills-aPxE';
+}
+
+
+
+p {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+img {
+  margin: 0 15px 15px 0;
+}
+
+@media screen and (max-width: 576px) { 
+  .display-4 {
+    font-size: 36px;
+  }
+  img {
+    display: block;
+  }
+  .jumbotron {
+    margin: 15px 0 15px 0;
+  }
+ }
+
+.conf-canvas{
+  position: absolute;
+  z-index: -1;
+}
+.top-container{
+  display: flex;
+  flex-direction: column;
+}
+
