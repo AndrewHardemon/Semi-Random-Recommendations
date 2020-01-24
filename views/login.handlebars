@@ -5,7 +5,8 @@
         <div class="card-header">
           <h1>Login</h1>
           {{#if messages.error}} 
-            <p>{{messages.error}}</p>          
+            <p>{{messages.error}}</p>
+          {{/if}}          
         </div><!--end of card header div-->
         <div class="card-body">
           <form action="/login" method="POST">

@@ -9,6 +9,15 @@ var flash = require('express-flash')
 var session = require('express-session')
 var methodOverride = require('method-override') 
 
+//Serve static content for the app from the "public" directory in the application directory
+app.use('/public', express.static('public'));
+
+// Set Handlebars
+var exphbs = require('express-handlebars');
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
 var initializePassport = require('./passport-config')
 initializePassport(
   passport,
@@ -17,11 +26,6 @@ initializePassport(
 )
 
 var users = []
-
-app.set('view-engine', 'ejs')
-
-app.use('/public', express.static('public'));
-
 
 app.use(express.urlencoded({ extended: false}))
 app.use(flash())
@@ -39,7 +43,7 @@ app.get('/', checkNotAuthenticated, function(req, res){
   res.render('index.handlebars')
 })
 
-app.get('/', checkAuthenticated, function(req, res) {
+app.get('/home', checkAuthenticated, function(req, res) {
   res.render('index.handlebars', { name: req.user.name })
 })
 

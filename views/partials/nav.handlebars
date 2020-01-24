@@ -1,25 +1,24 @@
  <!--Navbar-->
-  <nav class="navbar navbar-dark default-color">
-    {{#if user}}  
-    <nav class="navbar navbar-dark default-color">
-      <div class="btn">
-        <h1>Welcome {{name}}</h1>
-      </div>
-      <form id="top-nav" action="/lists">
-        <button type="submit" id="my-list" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My List</button>
-      </form>
-      <form id="top-nav" action="/profile">
-        <button type="submit" id="my-profile" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Profile</button>
-      </form>
-      <form id="top-nav" action="/home">
-        <button type="submit" id="my-profile" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search</button>
-      </form>
-      <form class="logout" action="/logout?_method=DELETE" method="POST" >
-        <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
-      </form>
-    </nav>
-    {{else}}
-    <form class="login" action="/login">
-      <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
+<nav class="navbar navbar-dark default-color">
+  {{#if name}}  
+    <div class="btn">
+      <h1>Welcome {{name}}</h1>
+    </div>
+    <form id="top-nav" action="/lists">
+      <button type="submit" id="my-list" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My List</button>
     </form>
-  </nav>
+    <form id="top-nav" action="/profile">
+      <button type="submit" id="my-profile" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Profile</button>
+    </form>
+    <form id="top-nav" action="/home">
+      <button type="submit" id="my-profile" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search</button>
+    </form>
+    <form class="logout" action="/logout?_method=DELETE" method="POST" >
+      <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
+    </form>
+  {{else}}
+  <form class="login" action="/login">
+    <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
+  </form>
+  {{/if}}
+</nav>
