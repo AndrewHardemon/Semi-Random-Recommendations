@@ -1,18 +1,22 @@
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
+  const user = sequelize.define('User', {
     name: {
-      type: DataTypes.STRING(40),
+      type: DataTypes.STRING,
+      unique: true,
       allowNull: false
     },
     email: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING,
+      unique: true,
       allowNull: false
     },
     password: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING,
       allowNull: false
     }
-  });
+  }, {});  User.associate = function(models) {
+    User.hasMany(models.AuthToken);
+  };
   return User;
 };
 
