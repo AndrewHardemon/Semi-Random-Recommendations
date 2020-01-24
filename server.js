@@ -39,7 +39,7 @@ app.get('/', checkNotAuthenticated, function(req, res){
   res.render('index.handlebars')
 })
 
-app.get('/home', checkAuthenticated, function(req, res) {
+app.get('/', checkAuthenticated, function(req, res) {
   res.render('index.handlebars', { name: req.user.name })
 })
 
@@ -48,7 +48,7 @@ app.get('/profile', checkAuthenticated, function(req, res) {
 })
 
 app.get('/login', checkNotAuthenticated, function(req, res){
-  res.render('login.ejs')
+  res.render('login.handlebars')
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
