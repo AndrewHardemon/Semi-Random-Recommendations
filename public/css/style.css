@@ -53,7 +53,7 @@ nav {
   font-family: 'SfHollywoodHills-aPxE';
 }
 
-/* Login Page Styling */
+/* Login & Register Page Styling */
 #login-container, #register-container {
   margin: auto
 }
@@ -85,7 +85,8 @@ nav {
 
 #login-links, #register-links {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
 }
 
 label {
@@ -101,13 +102,15 @@ button {
   align-self: center;
 }
 
-
 h1, h3 {
   text-align: center;
   font-family: 'SfHollywoodHills-aPxE';
 }
 
-
+input {
+  font-family: sans-serif;
+  font-size: 12px;
+}
 
 #modal-text {
   color: black;
@@ -131,10 +134,6 @@ select {
   font-family: sans-serif;
 }
 
-
-
-
-
 p {
   font-family: sans-serif;
   font-size: 12px;
@@ -142,6 +141,29 @@ p {
 
 img {
   margin: 0 15px 15px 0;
+}
+
+/*My Lists */
+#mylists-row {
+  margin-top: 30px;
+  min-height: 800px;
+}
+
+#mylists-h1 {
+  color: #e9ecef;
+  font-size: 28px;
+}
+
+#mylists-output, #mylists-sidenav {
+  padding: 20px;
+  background: #e9ecef;
+  height: 96%;
+  display: flex; 
+  justify-content: space-evenly;
+}
+
+#mylists-sidenav {
+  height: 90%;
 }
 
 @media screen and (max-width: 576px) { 

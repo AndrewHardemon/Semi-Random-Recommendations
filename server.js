@@ -47,10 +47,6 @@ app.get('/home', checkAuthenticated, function(req, res) {
   res.render('index.handlebars', { name: req.user.first })
 })
 
-app.get('/profile', checkAuthenticated, function(req, res) {
-  res.render('profile.ejs', { name: req.user.name.first })
-})
-
 app.get('/login', checkNotAuthenticated, function(req, res){
   res.render('login.handlebars')
 })
@@ -64,6 +60,10 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 
 app.get('/register',checkNotAuthenticated, function(req, res){
   res.render('register.handlebars')
+})
+
+app.get('/lists', checkAuthenticated, function(req, res) {
+  res.render('lists.handlebars', { name: req.user.first })
 })
 
 app.post('/register', checkNotAuthenticated, async function(req, res){
