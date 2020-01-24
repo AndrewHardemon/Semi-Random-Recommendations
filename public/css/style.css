@@ -28,28 +28,86 @@ body {
   font-size: 24px;
 }
 
-#top-nav {
-  display: flex; 
+/*Navbar Styling*/
+nav {
+  background-color: #8e44ad;
+}
+
+#login-btn {
+  align-self: flex-end;
+}
+
+#topnav-home-btn {
+  font-size: 28px;
+}
+
+.btn {
+  color: #ffffff;
+  font-size: 18px;
+  background-color: #8e44ad;
+  border-color: #8e44ad;
+}
+
+.btn-info {
+  color: #ffffff;
+  font-family: 'SfHollywoodHills-aPxE';
+}
+
+/* Login Page Styling */
+#login-container {
+  margin: auto
+}
+
+.login-text {
+  font-family: 'SfHollywoodHills-aPxE';
+}
+
+#login-row {
+  margin-top: 30%;
+}
+
+#login-col {
+  margin: auto;
+  max-width: fit-content;
+  padding: 0;
+}
+
+#login-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-form-input-div {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+#login-links {
+  display: flex;
   justify-content: space-evenly;
 }
 
-.login, .logout {
-  display: flex; 
-  justify-content: flex-end;
+label {
+  padding-right:10px;
+  margin: 0;
 }
+
+button {
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 10px;
+  max-width: fit-content;
+  display: flex;
+  align-self: center;
+}
+
 
 h1, h3 {
   text-align: center;
   font-family: 'SfHollywoodHills-aPxE';
 }
 
-nav {
-  background-color: #8e44ad;
-}
 
-.login-text {
-  font-family: 'SfHollywoodHills-aPxE';
-}
 
 #modal-text {
   color: black;
@@ -65,24 +123,15 @@ form {
   font-family: 'SfHollywoodHills-aPxE';
   font-size: 20px;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 select {
   font-family: sans-serif;
 }
 
-.btn {
-  color: #ffffff;
-  font-size: 24px;
-  background-color: #8e44ad;
-  border-color: #8e44ad;
 
-}
-
-.btn-info {
-  color: #ffffff;
-  font-family: 'SfHollywoodHills-aPxE';
-}
 
 
 
@@ -105,14 +154,12 @@ img {
   .jumbotron {
     margin: 15px 0 15px 0;
   }
- }
+}
+
 
 .conf-canvas{
   position: absolute;
   z-index: -1;
 }
-.top-container{
-  display: flex;
-  flex-direction: column;
-}
+
 
