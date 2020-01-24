@@ -54,7 +54,7 @@ nav {
 }
 
 /* Login Page Styling */
-#login-container {
+#login-container, #register-container {
   margin: auto
 }
 
@@ -62,28 +62,28 @@ nav {
   font-family: 'SfHollywoodHills-aPxE';
 }
 
-#login-row {
+#login-row, #register-row {
   margin-top: 30%;
 }
 
-#login-col {
+#login-col, #register-col {
   margin: auto;
   max-width: fit-content;
   padding: 0;
 }
 
-#login-card-body {
+#login-card-body, #register-card-body {
   display: flex;
   flex-direction: column;
 }
 
-#login-form-input-div {
+#login-form-input-div, #register-form-input-div {
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
 }
 
-#login-links {
+#login-links, #register-links {
   display: flex;
   justify-content: space-evenly;
 }
