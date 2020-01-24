@@ -36,11 +36,11 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkNotAuthenticated, function(req, res){
-  res.render('index.ejs')
+  res.render('index.handlebars')
 })
 
 app.get('/home', checkAuthenticated, function(req, res) {
-  res.render('home.ejs', { name: req.user.name })
+  res.render('index.handlebars', { name: req.user.name })
 })
 
 app.get('/profile', checkAuthenticated, function(req, res) {
