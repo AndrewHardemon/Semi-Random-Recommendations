@@ -26,6 +26,7 @@ initializePassport(
 )
 
 var users = []
+var userLists = []
 
 app.use(express.urlencoded({ extended: false}))
 app.use(flash())
@@ -63,7 +64,14 @@ app.get('/register',checkNotAuthenticated, function(req, res){
 })
 
 app.get('/lists', checkAuthenticated, function(req, res) {
-  res.render('lists.handlebars', { name: req.user.first })
+  res.render('lists.handlebars', {name: req.user.first})
+})
+
+app.post('/addList', checkAuthenticated, function(req,res){
+  userLists.push({
+    listName: req.body.listName,
+  })
+  res.render('lists.handlebars', {userLists: userLists, name: req.user.first})
 })
 
 app.post('/register', checkNotAuthenticated, async function(req, res){

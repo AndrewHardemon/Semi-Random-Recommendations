@@ -172,6 +172,7 @@ img {
 #mylists-nav-btn, #mylists-add-btn {
   min-width: -webkit-fill-available;
   justify-content: center;
+  text-transform: uppercase;
 }
 
 
