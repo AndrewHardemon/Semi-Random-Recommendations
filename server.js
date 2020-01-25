@@ -44,11 +44,7 @@ app.get('/', checkNotAuthenticated, function(req, res){
 })
 
 app.get('/home', checkAuthenticated, function(req, res) {
-  res.render('index.handlebars', { name: req.user.name })
-})
-
-app.get('/profile', checkAuthenticated, function(req, res) {
-  res.render('profile.ejs', { name: req.user.name })
+  res.render('index.handlebars', { name: req.user.first })
 })
 
 app.get('/login', checkNotAuthenticated, function(req, res){
@@ -63,7 +59,11 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 }))
 
 app.get('/register',checkNotAuthenticated, function(req, res){
-  res.render('register.ejs')
+  res.render('register.handlebars')
+})
+
+app.get('/lists', checkAuthenticated, function(req, res) {
+  res.render('lists.handlebars', { name: req.user.first })
 })
 
 app.post('/register', checkNotAuthenticated, async function(req, res){
@@ -71,7 +71,8 @@ app.post('/register', checkNotAuthenticated, async function(req, res){
     var hashedPassword = await bcrypt.hash(req.body.password, 10)
     users.push({
       id: Date.now().toString(),
-      name: req.body.name,
+      first: req.body.firstName,
+      last: req.body.lastName,
       email: req.body.email,
       password: hashedPassword
     })
