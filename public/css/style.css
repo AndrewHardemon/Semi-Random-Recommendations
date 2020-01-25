@@ -28,6 +28,19 @@ body {
   font-size: 24px;
 }
 
+h2 {
+  margin-botton: 20px;
+  text-align: center;
+  font-family: 'SfHollywoodHills-aPxE'
+}
+
+img {
+  margin: 0 15px 15px 0;
+  display: block;
+  width: inherit;
+}
+
+
 /*Navbar Styling*/
 nav {
   background-color: #8e44ad;
@@ -139,9 +152,7 @@ p {
   font-size: 12px;
 }
 
-img {
-  margin: 0 15px 15px 0;
-}
+
 
 /*My Lists */
 #mylists-row {
