@@ -39,4 +39,13 @@ Object.keys(db).forEach(function(modelName) {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+//Associatons
+
+//Permisions
+db.permission.hasMany(db.user)
+
+//Users
+db.user.belongsTo(db.permission)
+
+
 module.exports = db;
