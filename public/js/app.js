@@ -170,7 +170,6 @@ $("#submit").on("click", function (event) {
         //Get poster
 
         var artwork = "https://image.tmdb.org/t/p/w500" + res.results[total].poster_path
-        var backdrop = "https://image.tmdb.org/t/p/w500" + res.results[total].backdrop_path
         console.log(artwork)
 
         //OUTPUT CODE
@@ -180,8 +179,12 @@ $("#submit").on("click", function (event) {
 
         //Output the Artwork
         var poster = $("<img>");
-        poster.attr("src", artwork);
-        poster.attr("alt", backdrop);
+        if (artwork.includes('null')) {
+          console.log('Null in artwork!');
+          poster.attr("src", "https://via.placeholder.com/500")
+        } else {
+          poster.attr("src", artwork)
+        }
         poster.attr("class", "rounded float-left");
         $("#outputs").append(poster);
 
