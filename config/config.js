@@ -1,7 +1,9 @@
-{
+require('dotenv').config();
+module.exports = {
+
   "development": {
     "username": "root",
-    "password": "Skeejah8440",
+    "password": process.env.DB_PASS,
     "database": "sequelize_passport",
     "host": "localhost",
     "dialect": "mysql"
@@ -19,3 +21,4 @@
     "dialect": "mysql"
   }
 }
+
