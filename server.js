@@ -12,6 +12,15 @@ var flash = require('express-flash')
 var session = require('express-session')
 var methodOverride = require('method-override') 
 
+//Serve static content for the app from the "public" directory in the application directory
+app.use('/public', express.static('public'));
+
+// Set Handlebars
+var exphbs = require('express-handlebars');
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
 var initializePassport = require('./passport-config')
 initializePassport(
   passport,
@@ -20,11 +29,7 @@ initializePassport(
 )
 
 var users = []
-
-app.set('view-engine', 'ejs')
-
-app.use('/public', express.static('public'));
-
+var userLists = []
 
 app.use(express.urlencoded({ extended: false}))
 app.use(flash())
@@ -39,19 +44,15 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkNotAuthenticated, function(req, res){
-  res.render('index.ejs')
+  res.render('index.handlebars')
 })
 
 app.get('/home', checkAuthenticated, function(req, res) {
-  res.render('home.ejs', { name: req.user.name })
-})
-
-app.get('/profile', checkAuthenticated, function(req, res) {
-  res.render('profile.ejs', { name: req.user.name })
+  res.render('index.handlebars', { name: req.user.first })
 })
 
 app.get('/login', checkNotAuthenticated, function(req, res){
-  res.render('login.ejs')
+  res.render('login.handlebars')
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
@@ -62,7 +63,18 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 }))
 
 app.get('/register',checkNotAuthenticated, function(req, res){
-  res.render('register.ejs')
+  res.render('register.handlebars')
+})
+
+app.get('/lists', checkAuthenticated, function(req, res) {
+  res.render('lists.handlebars', {name: req.user.first})
+})
+
+app.post('/addList', checkAuthenticated, function(req,res){
+  userLists.push({
+    listName: req.body.listName,
+  })
+  res.render('lists.handlebars', {userLists: userLists, name: req.user.first})
 })
 
 app.post('/register', checkNotAuthenticated, async function(req, res){
@@ -70,7 +82,8 @@ app.post('/register', checkNotAuthenticated, async function(req, res){
     var hashedPassword = await bcrypt.hash(req.body.password, 10)
     users.push({
       id: Date.now().toString(),
-      name: req.body.name,
+      first: req.body.firstName,
+      last: req.body.lastName,
       email: req.body.email,
       password: hashedPassword
     })

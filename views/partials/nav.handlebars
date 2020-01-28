@@ -1,0 +1,21 @@
+ <!--Navbar-->
+<nav class="navbar navbar-dark default-color">
+  {{#if name}}  
+    <form id="topnav" action="/">
+      <button type="submit" id="topnav-home-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Welcome {{name}}!</button>
+    </form>
+    <form id="topnav" action="/lists">
+      <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
+    </form>
+    <form id="topnav" action="/profile">
+      <button type="submit" id="account-settings" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Account Settings</button>
+    </form>
+    <form class="logout" id='topnav' action="/logout?_method=DELETE" method="POST" >
+      <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
+    </form>
+  {{else}}
+  <form class="login" id ='topnav'action="/login">
+    <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
+  </form>
+  {{/if}}
+</nav>

@@ -1,0 +1,56 @@
+<div class="container" id='my-lists'>
+  {{> nav}}
+
+  <div class="row" id='mylists-row'> <!--start of row one-->
+    <div class="col-3"> <!--start of row one column-->
+      <h1 id='mylists-h1'>
+        My Lists
+      </h1>
+
+      <div class='container' id='mylists-sidenav'>
+        {{#each userLists}}
+          <button id='mylists-nav-btn'>
+            {{listName}}
+          </button>
+        {{/each}}
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" id='mylists-add-btn' data-toggle="modal" data-target="#exampleModal">
+          ADD LIST
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add a List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div><!--end of modal-header div-->
+              <div class="modal-body">
+                <form action="/addList" method="POST">
+                  <div id='addList-form-input-div'>
+                    <label for="listName">List Name</label>
+                    <input type="text" id="listName" name="listName" required>
+                  </div>
+                  <button type="submit" id='create-list'>CREATE</button>
+                </form>
+              </div><!--end of modal-body div-->
+            </div><!--end of modal-content div-->
+          </div><!--end of modal-dialog div-->
+        </div><!--end of modal div-->
+      </div><!--end of mylists=sidenav container div-->
+    </div> <!--end of column one div-->
+
+    <div class='col-9'>
+      <div class='container' id='mylists-output'>
+
+      </div>
+
+    </div><!--end of column 2 div-->
+  </div> <!--end of row div-->
+</div><!--end of container-->
+
+<script src="../public/js/mylists.js"></script>
