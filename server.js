@@ -11,12 +11,6 @@ var bcrypt = require("bcrypt");
 var flash = require("express-flash");
 var session = require("express-session");
 var methodOverride = require("method-override");
-var initializePassport = require("./passport-config");
-initializePassport(
-  passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
-);
 
 
 //Middleware
@@ -42,11 +36,25 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 
-
-// var users = [];
-
-// Routes
+//Routes
 require("./routes/apiRoutes")(app, passport);
 require("./routes/htmlRoutes")(app, passport);
 
-app.listen(8080)
+//Passport strategies
+require('./config/passport/passport.js')(passport, db.user);
+
+//Sync Database
+db.sequelize.sync().then(function() {
+  console.log('Nice! Database looks fine')
+}).catch(function(err) {
+  console.log(err, "Something went wrong with the Database Update!")
+});
+
+app.listen(8080, function(err){
+  if(err) {
+    console.log(err)
+  } else {
+    console.log('server is live')
+  }
+
+})

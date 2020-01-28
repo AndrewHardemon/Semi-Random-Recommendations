@@ -1,0 +1,33 @@
+<div class="container top-container" id='login-container'>
+  <div class="row" id='login-row'>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-5 col-xl-4" id='login-col'>
+      <div class="card">
+        <div class="card-header">
+          <h1>Login</h1>
+          {{#if messages.error}} 
+            <p>{{messages.error}}</p>
+          {{/if}}          
+        </div><!--end of card header div-->
+        <div class="card-body" id='login-card-body'>
+          <form action="/login" method="POST">
+            <div id='login-form-input-div'>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div id='login-form-input-div'>
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+          </form>
+          <div id='login-links'>
+            <a type="button" href="/">FORGOT CREDENTIALS</a>
+            <a type="button" href="/register">REGISTER</a>
+            <a type="button" href="/">CANCEL</a>
+          </div>
+          
+        </div><!--end of card body div-->
+      </div><!--end of card div-->
+    </div><!--end of column div-->
+  </div><!--end of row div-->
+</div><!--end of container div-->
