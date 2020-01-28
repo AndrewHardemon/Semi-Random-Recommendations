@@ -1,21 +1,25 @@
 var bcrypt = require("bcrypt");
 var LocalStrategy = require("passport-local").Strategy;
 
+var User = require("../models/users")
+
 module.exports = function(passport, user) {
   var User = user;
-  
-  passport.use("local-signup", new LocalStrategy(
+
+  passport.use(
+    "local-signup",
+    new LocalStrategy(
       {
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true // allows us to pass back the entire request to the callback
+        passReqToCallback: true 
       },
 
       function(req, email, password, done) {
         var generateHash = function(password) {
           return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
         };
-        
+
         User.findOne({
           where: {
             email: email
@@ -55,13 +59,11 @@ module.exports = function(passport, user) {
     "local-signin",
     new LocalStrategy(
       {
-        // by default, local strategy uses username and password, we will override with email
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true // allows us to pass back the entire request to the callback
+        passReqToCallback: true 
       },
       function(req, email, password, done) {
-        var User = user;
         var isValidPassword = function(userpass, password) {
           return bcrypt.compareSync(password, userpass);
         };
@@ -98,14 +100,10 @@ module.exports = function(passport, user) {
     done(null, user.id);
   });
 
-  // deserialize user
+  //deserialize
   passport.deserializeUser(function(id, done) {
-    User.findById(id).then(function(user) {
-      if (user) {
-        done(null, user.get());
-      } else {
-        done(user.errors, null);
-      }
+    User.findById(id, function(err, user) {
+      done(err, user);
     });
   });
 };
