@@ -67,6 +67,10 @@ app.get('/lists', checkAuthenticated, function(req, res) {
   res.render('lists.handlebars', {name: req.user.first})
 })
 
+app.get('/profile', function(req,res) {
+  res.render("settings.handlebars", {name: `${req.user.first} ${ req.user.last}`, email: req.user.email, password: req.user.password})
+})
+
 app.post('/addList', checkAuthenticated, function(req,res){
   userLists.push({
     listName: req.body.listName,
