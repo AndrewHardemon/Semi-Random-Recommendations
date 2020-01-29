@@ -153,10 +153,6 @@ p {
   text-align: center;
 }
 
-.modal-header {
-  text-align: center;
-}
-
 /*My Lists */
 #mylists-row {
   margin-top: 30px;
@@ -268,7 +264,7 @@ p {
     align-items: center;
     margin-top: 1rem;
   }
-  
+
   .account-details-p {
     font-size: 10pt
   }
