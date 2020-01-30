@@ -1,10 +1,10 @@
 {
-  "name": "Login-Practice",
+  "name": "Project2Beta",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-handlebars": "^3.1.0",
+    "express-mysql-session": "^2.1.2",
     "express-session": "^1.17.0",
     "method-override": "^3.0.0",
     "mysql2": "^2.1.0",

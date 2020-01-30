@@ -1,71 +1,49 @@
-var db = require("../models");
-var passport = require("passport");
 
 module.exports = function(app, passport) {
-
   
   app.get("/", function(req, res) {
-    res.render("index.handlebars");
+    res.render("index");
   });
 
   app.get("/home", checkAuthenticated, function(req, res) {
-    res.render("index.handlebars", { name: req.user.first });
+    res.render("home", {name: req.user.firstName})  
   });
 
+  
   app.get("/login", function(req, res) {
-    res.render("login.handlebars");
+    res.render("login");
   });
-
-  app.post("/login",
-    passport.authenticate("local-signin", {
-      successRedirect: "/home",
-      failureRedirect: "/login",
-      failureFlash: true
-    })
-  );
-
+  
   app.get("/register", function(req, res) {
-    res.render("register.handlebars");
+    res.render("register");
   });
-
-  // app.post("/register", async function(req, res) {
-  //   try {
-  //     var hashedPassword = await bcrypt.hash(req.body.password, 10);
-  //     users.push({
-  //       id: Date.now().toString(),
-  //       first: req.body.firstName,
-  //       last: req.body.lastName,
-  //       email: req.body.email,
-  //       password: hashedPassword
-  //     });
-  //     res.redirect("/login");
-  //   } catch {
-  //     res.redirect("/register");
-  //   }
-  //   console.log(users);
-  // });
 
   app.post('/register', passport.authenticate('local-signup', {
+    successRedirect: '/login',
+    failureRedirect: '/register',
+    faliureFlash: true
+  }));
+
+  app.post("/login", passport.authenticate('local-signin', {
     successRedirect: '/home',
-    failureRedirect: '/register'
-  }
- 
-));
+    failureRedirect: '/login',
+    faliureFlash: true
+  }));
 
   app.get("/lists", checkAuthenticated, function(req, res) {
-    res.render("lists.handlebars", { name: req.user.first });
+    res.render("lists");
   });
 
-  app.delete("/logout", function(req, res) {
-    req.logOut();
-    res.redirect("/");
+  app.get("/logout", function(req, res) {
+    req.session.destroy(function(err) {
+      res.redirect("/");
+    });
   });
 
   function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
     }
-
     res.redirect("/login");
   }
 

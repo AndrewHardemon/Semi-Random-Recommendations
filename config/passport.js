@@ -1,10 +1,9 @@
 var bcrypt = require("bcrypt");
-var LocalStrategy = require("passport-local").Strategy;
+var models = require("../models/user");
 
-var User = require("../models/users")
 
-module.exports = function(passport, user) {
-  var User = user;
+module.exports = function(passport, User, db) {
+  var LocalStrategy = require("passport-local").Strategy;
 
   passport.use(
     "local-signup",
@@ -12,7 +11,7 @@ module.exports = function(passport, user) {
       {
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true 
+        passReqToCallback: true
       },
 
       function(req, email, password, done) {
@@ -38,7 +37,7 @@ module.exports = function(passport, user) {
               firstname: req.body.firstName,
               lastname: req.body.lastName
             };
-
+            
             User.create(data).then(function(newUser, created) {
               if (!newUser) {
                 return done(null, false);
@@ -61,13 +60,13 @@ module.exports = function(passport, user) {
       {
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true 
+        passReqToCallback: true
       },
       function(req, email, password, done) {
         var isValidPassword = function(userpass, password) {
           return bcrypt.compareSync(password, userpass);
         };
-        User.findOne({
+         User.findOne({
           where: {
             email: email
           }
@@ -78,32 +77,35 @@ module.exports = function(passport, user) {
                 message: "Email does not exist"
               });
             }
+
             if (!isValidPassword(user.password, password)) {
               return done(null, false, {
                 message: "Incorrect password."
               });
             }
+
             var userinfo = user.get();
+            console.log(userinfo)
             return done(null, userinfo);
           })
           .catch(function(err) {
             console.log("Error:", err);
             return done(null, false, {
-              message: "Something went wrong with your Signin"
+              message: "Something went wrong"
             });
           });
       }
     )
   );
+
   //serialize
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
 
   //deserialize
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-      done(err, user);
-    });
-  });
+ passport.deserializeUser(function(obj, cb) {
+cb(null, obj);
+});
+
 };
