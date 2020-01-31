@@ -86,23 +86,6 @@ $("#submit").on("click", function (event) {
         var game = res.results[ran];
         console.log(game);
 
-        //OUTPUT
-        //Output the Title
-        $("#outputs").text(game.name)
-
-        //Output the Artwork
-        var artwork = game.background_image
-        var poster = $("<img>");
-        if (artwork.includes('null')) {
-          console.log('Null in artwork!');
-          poster.attr("src", "https://via.placeholder.com/500")
-        } else {
-          poster.attr("src", artwork)
-        }
-        poster.attr("class", "rounded float-left");
-        poster.attr("id", "poster-image");
-        $("#outputs").append(poster);
-
         //Third API for YouTube video
         settings.url = `${gURL}/games/${game.slug}`
         $.ajax(settings).done(function (res2) {
@@ -119,6 +102,28 @@ $("#submit").on("click", function (event) {
             }
             console.log(vidID)
 
+            //OUTPUT CODE
+            //Output the Title
+            var title = $("<h1>")
+            title.text(res2.name)
+            title.attr("id", "gameTitleH1")
+            $("#outputs").prepend(title)
+            
+
+            //Output the Artwork
+            var artwork = game.background_image
+            var poster = $("<img>");
+            if (artwork.includes('null')) {
+              console.log('Null in artwork!');
+              poster.attr("src", "https://via.placeholder.com/500")
+            } else {
+              poster.attr("src", artwork)
+            }
+            poster.attr("class", "rounded float-left");
+            poster.attr("id", "poster-image");
+            $("#outputs").append(poster);
+
+
             //Output the youtube video
             var trailerDiv = $("<div>");
             trailerDiv.attr("class", "embed-responsive embed-responsive-4by3")
@@ -129,13 +134,14 @@ $("#submit").on("click", function (event) {
             trailer.attr("type", "video/mp4");
             $(trailerDiv).append(trailer);
             $("#outputs").append(trailerDiv)
+
+            // Output the Description
+            var desc = $("<p>");
+            desc.append(res2.description_raw);
+            console.log(res2.description_raw);
+            $("#outputs").append(desc);
+
           });
-          // Output the Description
-          var desc = $("<p>");
-          desc.append(res2.description_raw);
-          console.log(res2.description_raw);
-          $("#outputs").append(desc);
-          
         });//End of Third AJAX
       });//End of Second Ajax
     });//End of First Ajax

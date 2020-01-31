@@ -119,6 +119,8 @@ h1, h3 {
   font-family: 'SfHollywoodHills-aPxE';
 }
 
+
+
 input {
   font-family: sans-serif;
   font-size: 12px;
@@ -239,6 +241,11 @@ p {
   text-align: start;
   margin-left: 10px;
   font-size: 18px;
+}
+
+/*Games page styling */
+#gameTitleH1 {
+  margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 768px) { 
