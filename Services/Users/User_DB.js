@@ -43,8 +43,8 @@ async function EmailExists(email){
 
 async function CreateUser(args){
    
-    if(!args.firstname) throw new Error('Invalid argument: first_name');    
-    if(!args.lastname) throw new Error('Invalid argument: last_name');
+    if(!args.firstname) throw new Error('Invalid argument: firstname');    
+    if(!args.lastname) throw new Error('Invalid argument: lastname');
     if(!args.email) throw new Error('Invalid argument: email');
     if(!args.password) throw new Error('Invalid argument: password');
     
@@ -55,8 +55,8 @@ async function CreateUser(args){
     // if(!permissions) throw new Error('Invalid argument: permissionid not found')
 
     const user = await db.user.create({
-        firstname: args.first_name,
-        lastname: args.last_name,
+        firstname: args.firstname,
+        lastname: args.lastname,
         email: args.email,
         password: args.password
         

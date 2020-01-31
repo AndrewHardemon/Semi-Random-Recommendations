@@ -7,7 +7,7 @@ const db = require('../models')
 
 describe ("User DB Test Suite", function() {
     it('should see if a name already exists in db', async ()=>{
-        const check = await UsernameExists('dfgdfgdfgdfgd');
+        const check = await UsernameExists('dfgdfgdfg');
         expect(check).to.be.null;
         expect(check === undefined).to.be.false;
         expect(check === false).to.be.false
@@ -61,8 +61,8 @@ describe ("User DB Test Suite", function() {
     new user should have properties
         username
         email
-        first_name
-        last_name
+        firstname
+        lastname
         password- should be a hash not plain text
     */    
    it('should create a new user', async ()=>{
@@ -111,7 +111,7 @@ describe ("User DB Test Suite", function() {
 
     it('should throw an error bacuse no firstname is passed', async () =>{
         try{
-            const username = 'test_test';
+            
             const lastname = 'test';
             const email= 'test@test.com';
             const password ='test_test';
@@ -167,65 +167,7 @@ describe ("User DB Test Suite", function() {
        
     })
 
-    // it('should create a user and assign them permission id of 2 as default', async () =>{
-        
-    //         const username = 'test_test';
-    //         const first_name = 'test';
-    //         const last_name ='test';
-    //         const password ='test_test';
-    //         const email ='email@email.com'
-    //         const user = await CreateUser({first_name,last_name,password,username,email});
-    //         //Destroy user instance in db because is a test
-    //         await user.destroy({force: true});
-
-    //         expect(user).to.be.an('object');
-    //         expect(user.first_name).to.equal(first_name);
-    //         expect(user.last_name).to.equal(last_name);
-    //         expect(user.username).to.equal(username);
-    //         expect(user.email).to.equal(email);
-    //         expect(user.password).to.equal(password)
-    //         expect(user.permissionid).to.equal(2)
-      
-       
-    // })
-
-    
-
-    // it('should throw an error because an invalid permission id is passed to create user', async ()=>{
-        
-    //     try{
-    //         const username = 'test_test';
-    //         const first_name = 'test';
-    //         const last_name ='test';
-    //         const password ='test_test';
-    //         const email ='email@email.com';
-    //         const permissionid = 'sdfsdfs';
-    //         const user = await CreateUser({first_name,last_name,password,username,email,permissionid});
-    //     }catch(e){
-    //             expect(e).to.be.an('Error');
-    //             expect(e.message).to.equal('Invalid argument: permissionid not found');
-    //     }
-    // })
-
-    // it('should create a new user with a valid permissionid by lookup in the permission table', async ()=>{
-    //     const username = 'test_test';
-    //     const first_name = 'test';
-    //     const last_name ='test';
-    //     const password ='test_test';
-    //     const email ='email@email.com';
-    //     const permissionid =1;
-    //     const user = await CreateUser({first_name,last_name,password,username,email, permissionid});
-    //     //Destroy user instance in db because is a test
-    //     await user.destroy({force: true});
-
-    //     expect(user).to.be.an('object');
-    //     expect(user.first_name).to.equal(first_name);
-    //     expect(user.last_name).to.equal(last_name);
-    //     expect(user.username).to.equal(username);
-    //     expect(user.email).to.equal(email);
-    //     expect(user.password).to.equal(password)
-    //     expect(user.permissionid).to.equal(1)
-    // });
+   
 
     it('should return a user based on their ID', async ()=>{
         const user = await CreateDummyUser();
@@ -253,7 +195,7 @@ describe ("User DB Test Suite", function() {
     
     it('should return a user based on their name', async ()=>{
         const user = await CreateDummyUser();
-        const found = await FindUser(user.user.firstname);
+        const found = await FindUser(user.firstname);
         await DestroyDummyUser(user);
         expect(found).to.be.an('object');
         expect(founf.firstname).to.equal('test_test')

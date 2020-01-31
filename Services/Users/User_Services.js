@@ -2,11 +2,11 @@ const {UsernameExists, EmailExists, CreateUser, FindUser} = require('./User_DB')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-async function ValidateUserExists(username, email){
+async function ValidateUserExists(firstname, email){
     if(!firstname || !email ) throw new  ('Invalid number of args. Please pass name and email')
     let taken_valid_firstname = null;
     let taken_valid_email = null;
-    if(username){
+    if(firstname){
         taken_valid_firstname = await UsernameExists(firstname)
     }
     
