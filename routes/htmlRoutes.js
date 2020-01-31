@@ -1,5 +1,5 @@
-module.exports = function(app, passport, userInfo) {
-  
+module.exports = function(app, passport) {
+
   app.get("/", function(req, res) {
     res.render("index");
   });
@@ -8,7 +8,10 @@ module.exports = function(app, passport, userInfo) {
     res.render("home", {name: req.user.firstname})  
   });
 
-  
+  app.get("/profile", checkAuthenticated, function(req, res) {
+    res.render("settings", {name: req.user.firstname, email: req.user.email});
+  });
+
   app.get("/login", function(req, res) {
     res.render("login", {error: req.flash('error')});
   });

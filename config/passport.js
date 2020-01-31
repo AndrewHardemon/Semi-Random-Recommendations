@@ -100,12 +100,16 @@ module.exports = function(passport, User, db) {
 
   //serialize
   passport.serializeUser(function(user, done) {
-    done(null, user.firstname);
+    var sessionUser = { name: user.firstname, email: user.email}
+    console.log(sessionUser)
+    done(null, sessionUser);
   });
 
   //deserialize
-  passport.deserializeUser(function(firstname, done) {
-    done(null, {firstname: firstname});
+  passport.deserializeUser(function(sessionUser, done) {
+    console.log(sessionUser)
+    done(null, {firstname: sessionUser.name, email: sessionUser.email});
+    
   });
 
 };
