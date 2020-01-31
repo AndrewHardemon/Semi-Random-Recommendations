@@ -210,6 +210,7 @@ $("#submit").on("click", function (event) {
           console.log(ytVidID)
 
           //OUTPUT CODE
+          $("#outputs").empty();
           //Output the Title
           var title = $("<h1>")
           title.text(outputName)
