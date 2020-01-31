@@ -13,7 +13,7 @@ var methodOverride = require("method-override");
 
 
 //db connection
-var database = mysql.createConnection({
+var database = mysql.createConnection(process.env.JAWSDB_URL||{
   host: 'localhost',
   user: 'root',
   password: process.env.DB_PASS,
