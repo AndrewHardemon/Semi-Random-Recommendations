@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "devStart": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "debug": "nodemon --inspect"
   },
   "engines": {
     "node": "^8"

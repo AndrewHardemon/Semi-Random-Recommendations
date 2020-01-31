@@ -15,13 +15,8 @@ var methodOverride = require("method-override");
 //db connection
 var database = mysql.createConnection(process.env.JAWSDB_URL||{
   host: 'localhost',
-<<<<<<< HEAD
-  user: "root",
-  password: "root",
-=======
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
->>>>>>> fe391002d0010f06cd2e0df23b2e9092647f03a1
   database: "sequelize_passport"
 })
 
