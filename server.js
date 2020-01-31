@@ -1,120 +1,73 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-var express = require('express')
-var app = express()
-var bcrypt = require('bcrypt')
-var passport = require('passport')
-var flash = require('express-flash')
-var session = require('express-session')
-var methodOverride = require('method-override') 
+require("dotenv").config();
+var express = require("express");
+var exphbs = require("express-handlebars");
+var db = require("./models");
+var mysql = require("mysql")
+var app = express();
+var port = process.env.PORT || 8080;
+var passport = require("passport");
+var flash = require("express-flash");
+var session = require("express-session");
+var flash = require('connect-flash');
+var methodOverride = require("method-override");
 
-//Serve static content for the app from the "public" directory in the application directory
-app.use('/public', express.static('public'));
 
-// Set Handlebars
-var exphbs = require('express-handlebars');
-
-app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
-
-var initializePassport = require('./passport-config')
-initializePassport(
-  passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
-)
-
-var users = []
-var userLists = []
-
-app.use(express.urlencoded({ extended: false}))
-app.use(flash())
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}))
-
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(methodOverride('_method'))
-
-app.get('/', checkNotAuthenticated, function(req, res){
-  res.render('index.handlebars')
+//db connection
+var database = mysql.createConnection({
+  host: 'localhost',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: "sequelize_passport"
 })
 
-app.get('/home', checkAuthenticated, function(req, res) {
-  res.render('index.handlebars', { name: req.user.first })
+database.connect(function(err) {
+  if (err) {
+    throw(err)
+  }
+  console.log("MySQL connected") 
 })
 
-app.get('/login', checkNotAuthenticated, function(req, res){
-  res.render('login.handlebars')
-})
+//Sync Database
+db.sequelize.sync().then(function() {
+  console.log('Nice! Database looks fine')
+}).catch(function(err) {
+  console.log(err, "Something went wrong with the Database Update!")
+});
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/home',
-  failureRedirect: '/login',
-  failureFlash: true
-  
-}))
+//Middleware
+app.use("/public", express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 
-app.get('/register',checkNotAuthenticated, function(req, res){
-  res.render('register.handlebars')
-})
+//Passport strategies
+require('./config/passport')(passport, db.user);
 
-app.get('/lists', checkAuthenticated, function(req, res) {
-  res.render('lists.handlebars', {name: req.user.first})
-})
-
-app.get('/profile', function(req,res) {
-  res.render("settings.handlebars", {name: `${req.user.first} ${ req.user.last}`, email: req.user.email, password: req.user.password})
-})
-
-app.post('/addList', checkAuthenticated, function(req,res){
-  userLists.push({
-    listName: req.body.listName,
+//Passport
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true
   })
-  res.render('lists.handlebars', {userLists: userLists, name: req.user.first})
-})
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-app.post('/register', checkNotAuthenticated, async function(req, res){
-  try {
-    var hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      id: Date.now().toString(),
-      first: req.body.firstName,
-      last: req.body.lastName,
-      email: req.body.email,
-      password: hashedPassword
-    })
-    res.redirect('/login')
-  } catch {
-    res.redirect('/register')
+//For the logout
+app.use(methodOverride("_method"));
+app.use(flash())
+//Handlebars
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+//Routes
+require("./routes/apiRoutes")(app, passport);
+require("./routes/htmlRoutes")(app, passport);
+
+app.listen(port, function(err){
+  if(err) {
+    console.log(err)
+  } else {
+    console.log('Server is live')
   }
-  console.log(users)
 })
-
-
-app.delete('/logout', function(req, res) {
-  req.logOut()
-  res.redirect('/')
-})
-
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next()
-  }
-
-  res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect('/')
-  }
-
-  next()
-}
-
-app.listen(8080)
