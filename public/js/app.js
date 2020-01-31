@@ -3,12 +3,13 @@ var type = "movie" //or tv
 var genre = "genre"//name or id of genre
 var runtime = ""; //15 minute increments
 var sources = ""; //netflix or similar. uses other api
-var apiKey = "92f5c8ff853ffea4d1fed070c2f2d729"
-var guidebox = "b139d5197d801c46c57a4f1ea225f77be6935a0d"
+var apiKey = process.env.DB_MOVIE_API;
 var tries = 0;
 var finalResult = "";
 var descArray = [];
 var srcArray = [];
+var ytVid = "";
+var ytVidID = "";
 
 
 //Click Event
@@ -160,6 +161,7 @@ $("#submit").on("click", function (event) {
         //Replace spaces with -
         outputName = outputName.replace(/\ /g, '-')
         console.log(outputName)
+        //SAVE NAME
 
         //Get Description for the Movie/Show
         console.log(queryURL);
@@ -168,44 +170,92 @@ $("#submit").on("click", function (event) {
         descArray.push(desc);
 
         //Get poster
-
         var artwork = "https://image.tmdb.org/t/p/w500" + res.results[total].poster_path
-        var backdrop = "https://image.tmdb.org/t/p/w500" + res.results[total].backdrop_path
+        //SAVE ARTWORK
+        //var backdrop = "https://image.tmdb.org/t/p/w500" + res.results[total].backdrop_path
+
+        //If null
+        if (artwork == null && backdrop === null) {
+          artwork = "https://www.gaskinsbennett.com/wp-content/uploads/2017/06/placeholder-500x500.jpg"
+          backdrop = "https://www.gaskinsbennett.com/wp-content/uploads/2017/06/placeholder-500x500.jpg"
+        }
+
+
         console.log(artwork)
 
-        //OUTPUT CODE
+        //Youtube ID
+        var ytID = res.results[total].id;
+        console.log(ytID)
+        console.log(typeof (ytID))
+        if (ytID === null) {
+          //ytID = "157336"
+          totalAjax();
+        }
 
-        //Output the Title
-        $("#outputs").text(outputName)
+        var ytURL = `http://api.themoviedb.org/3/movie/${ytID}/videos?api_key=92f5c8ff853ffea4d1fed070c2f2d729`
+        //var ytURL = `http://api.themoviedb.org/3/movie/157336/videos?api_key=92f5c8ff853ffea4d1fed070c2f2d729`
+        console.log(ytURL);
 
-        //Output the Artwork
-        var poster = $("<img>");
-        poster.attr("src", artwork);
-        poster.attr("alt", backdrop);
-        poster.attr("id", "poster-image");
-        poster.attr("class", "rounded float-left");
-        $("#outputs").append(poster);
+        //Third AJAX
+        $.ajax({
+          url: ytURL,
+          method: "GET"
+        }).then(function (res2) {
+          console.log(res2)
+          if (res2.results.length === 0) {
+            totalAjax();
+          }
+          ytVid = `https://www.youtube.com/watch?v=${res2.results[0].key}`
+          //SAVE VIDEO LINK
+          ytVidID = "" + res2.results[0].key;
+          console.log(ytVid);
 
-        //Output the Description
-        var desc = $("<p>");
-        desc.append(descArray[0]);
-        console.log(descArray[0]);
-        $("#outputs").append(desc);
-        descArray = [];
+          console.log(ytVid)
+          console.log(ytVidID)
 
-        //Output if available on source
-        var sorc = $("<p>");
-        sorc.append(srcArray[0]);
-        console.log(srcArray[0]);
-        // $("#outputs").append
+          //OUTPUT CODE
+          //Output the Title
+          $("#outputs").text(outputName)
 
-        // Confetti
-        var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
-        var confetti = new ConfettiGenerator(confettiSettings);
-        confetti.render();
+          //Output the Artwork
+          var poster = $("<img>");
+          if (artwork.includes('null')) {
+            console.log('Null in artwork!');
+            poster.attr("src", "https://via.placeholder.com/500")
+          } else {
+            poster.attr("src", artwork)
+          }
+          poster.attr("class", "rounded float-left");
+          $("#outputs").append(poster);
 
-        setTimeout(function () { confetti.clear() }, 5000);
+          //Output the Description
+          var desc = $("<p>");
+          desc.append(descArray[0]);
+          console.log(descArray[0]);
+          $("#outputs").append(desc);
+          descArray = [];
 
+          //Output the youtube video
+          var trailer = $("<div>");
+          trailer.attr("id", ytID);
+          trailer.attr("class", "youtube")
+          trailer.attr("style", "width:560px; height:315px");
+          $("#inputs").append(trailer);
+
+
+          $("#yt").attr("src", `https://www.youtube.com/embed/${ytVidID}`);
+          $("#yt").attr("width", "400");
+          $("#yt").attr("height", "300");
+
+
+          // Confetti
+          var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
+          var confetti = new ConfettiGenerator(confettiSettings);
+          confetti.render();
+
+          setTimeout(function () { confetti.clear() }, 5000);
+
+        });
       });
     });
   } //end of function

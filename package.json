@@ -2,8 +2,9 @@
   "name": "Project2Beta",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
+    "dev": "nodemon server.js",
     "devStart": "nodemon server.js",
     "start": "node server.js"
   },
@@ -19,18 +20,16 @@
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-handlebars": "^3.1.0",
+    "express-mysql-session": "^2.1.2",
     "express-session": "^1.17.0",
     "method-override": "^3.0.0",
     "mysql2": "^2.1.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.21.3",
-    "validate.js": "^0.13.1"
+    "sequelize": "^5.21.3"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
     "dotenv": "^8.2.0",
-    "mocha": "^7.0.1",
     "nodemon": "^2.0.2"
   }
 }

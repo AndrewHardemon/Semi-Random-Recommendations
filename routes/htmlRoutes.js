@@ -1,27 +1,56 @@
-var db = require("../models");
+module.exports = function(app, passport) {
 
-module.exports = function(app) {
-  // Load index page
   app.get("/", function(req, res) {
-    db.User.findAll({}).then(function(dbUser) {
-      res.render("index", {
-        msg: "Welcome!",
-        examples: dbUsers
-      });
-    });
+    res.render("index");
   });
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-    db.User.findOne({ where: { id: req.params.id } }).then(function(dbUser) {
-      res.render("example", {
-        example: dbUser
-      });
-    });
+  app.get("/home", checkAuthenticated, function(req, res) {
+    res.render("home", {name: req.user.firstname})  
   });
 
-  // Render 404 page for any unmatched routes
+  app.get("/profile", checkAuthenticated, function(req, res) {
+    res.render("settings", {name: req.user.firstname, email: req.user.email});
+  });
+
+  app.get("/login", function(req, res) {
+    res.render("login", {error: req.flash('error')});
+  });
+  
+  app.get("/register", function(req, res) {
+    res.render("register", {error: req.flash('error')});
+  });
+
+  app.post('/register', passport.authenticate('local-signup', {
+    successRedirect: '/login',
+    failureRedirect: '/register',
+    failureFlash: true
+  }));
+
+  app.post("/login", passport.authenticate('local-signin', {
+    successRedirect: '/home',
+    failureRedirect: '/login',
+    failureFlash: true
+  }));
+
+  app.get("/lists", checkAuthenticated, function(req, res) {
+    res.render("lists");
+  });
+
+  app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/login");
+
+  });
+
+  function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect("/login");
+  }
+
   app.get("*", function(req, res) {
     res.render("404");
   });
 };
+
