@@ -8,9 +8,40 @@
       <form id='topnav' action="/games">
           <button type="submit" id="search-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
       </form>
+      <form id="topnav" action="/lists">
+        <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
+      </form>
+      <form id="topnav" action="/profile">
+        <button type="submit" id="account-settings" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Account Settings</button>
+      </form>
+      <form id='topnav' action='/logout'>
+        <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
+      </form>
     {{else if games}}
       <form id='topnav' action="/home">
           <button type="submit" id="search-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
+      </form>
+      <form id="topnav" action="/lists">
+        <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
+      </form>
+      <form id="topnav" action="/profile">
+        <button type="submit" id="account-settings" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Account Settings</button>
+      </form>
+      <form id='topnav' action='/logout'>
+        <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
+      </form>
+    {{else if lists}}
+      <form id='topnav' action="/home">
+          <button type="submit" id="search-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
+      </form>
+      <form id='topnav' action="/games">
+          <button type="submit" id="search-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
+      </form>
+      <form id="topnav" action="/profile">
+        <button type="submit" id="account-settings" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Account Settings</button>
+      </form>
+       <form id='topnav' action='/logout'>
+        <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
       </form>
     {{else}}
       <form id='topnav' action="/home">
@@ -19,28 +50,28 @@
       <form id='topnav' action="/games">
           <button type="submit" id="search-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
       </form>
+      <form id="topnav" action="/lists">
+        <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
+      </form>
+      <form id='topnav' action='/logout'>
+        <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
+      </form>
     {{/if}}
-    <form id="topnav" action="/lists">
-      <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
-    </form>
-    <form id="topnav" action="/profile">
-      <button type="submit" id="account-settings" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Account Settings</button>
-    </form>
-    <form class="logout" id='topnav' action="/logout">
-      <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
-    </form>
   {{else}}
     {{#if index}}
       <form id='topnav' action="/guestGames">
-          <button type="submit" id="guest-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
+        <button type="submit" id="guest-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
+      </form>
+      <form class="login" id ='topnav'action="/login">
+        <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
       </form>
     {{else}}
       <form id='topnav' action="/">
-          <button type="submit" id="guest-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
+        <button type="submit" id="guest-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
+      </form>
+      <form class="login" id ='topnav'action="/login">
+        <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
       </form>
     {{/if}}
-  <form class="login" id ='topnav'action="/login">
-    <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
-  </form>
   {{/if}}
 </nav>
