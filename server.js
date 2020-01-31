@@ -1,103 +1,73 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-var express = require('express')
-var app = express()
-var bcrypt = require('bcrypt')
-var passport = require('passport')
-var flash = require('express-flash')
-var session = require('express-session')
-var methodOverride = require('method-override') 
-
-var initializePassport = require('./passport-config')
-initializePassport(
-  passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
-)
-
-var users = []
-
-app.set('view-engine', 'ejs')
-
-app.use('/public', express.static('public'));
+require("dotenv").config();
+var express = require("express");
+var exphbs = require("express-handlebars");
+var db = require("./models");
+var mysql = require("mysql")
+var app = express();
+var port = process.env.PORT || 8080;
+var passport = require("passport");
+var flash = require("express-flash");
+var session = require("express-session");
+var flash = require('connect-flash');
+var methodOverride = require("method-override");
 
 
-app.use(express.urlencoded({ extended: false}))
+//db connection
+var database = mysql.createConnection({
+  host: 'localhost',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: "sequelize_passport"
+})
+
+database.connect(function(err) {
+  if (err) {
+    throw(err)
+  }
+  console.log("MySQL connected") 
+})
+
+//Sync Database
+db.sequelize.sync().then(function() {
+  console.log('Nice! Database looks fine')
+}).catch(function(err) {
+  console.log(err, "Something went wrong with the Database Update!")
+});
+
+//Middleware
+app.use("/public", express.static("public"));
+app.use(express.urlencoded({ extended: false }));
+
+//Passport strategies
+require('./config/passport')(passport, db.user);
+
+//Passport
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//For the logout
+app.use(methodOverride("_method"));
 app.use(flash())
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}))
+//Handlebars
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(methodOverride('_method'))
+//Routes
+require("./routes/apiRoutes")(app, passport);
+require("./routes/htmlRoutes")(app, passport);
 
-app.get('/', checkNotAuthenticated, function(req, res){
-  res.render('index.ejs')
-})
-
-app.get('/home', checkAuthenticated, function(req, res) {
-  res.render('home.ejs', { name: req.user.name })
-})
-
-app.get('/profile', checkAuthenticated, function(req, res) {
-  res.render('profile.ejs', { name: req.user.name })
-})
-
-app.get('/login', checkNotAuthenticated, function(req, res){
-  res.render('login.ejs')
-})
-
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/home',
-  failureRedirect: '/login',
-  failureFlash: true
-  
-}))
-
-app.get('/register',checkNotAuthenticated, function(req, res){
-  res.render('register.ejs')
-})
-
-app.post('/register', checkNotAuthenticated, async function(req, res){
-  try {
-    var hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    })
-    res.redirect('/login')
-  } catch {
-    res.redirect('/register')
+app.listen(port, function(err){
+  if(err) {
+    console.log(err)
+  } else {
+    console.log('Server is live')
   }
-  console.log(users)
 })
-
-
-app.delete('/logout', function(req, res) {
-  req.logOut()
-  res.redirect('/')
-})
-
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next()
-  }
-
-  res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect('/')
-  }
-
-  next()
-}
-
-app.listen(8080)
