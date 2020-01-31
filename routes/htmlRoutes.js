@@ -20,13 +20,13 @@ module.exports = function(app, passport, userInfo) {
   app.post('/register', passport.authenticate('local-signup', {
     successRedirect: '/login',
     failureRedirect: '/register',
-    faliureFlash: true
+    failureFlash: true
   }));
 
   app.post("/login", passport.authenticate('local-signin', {
     successRedirect: '/home',
     failureRedirect: '/login',
-    faliureFlash: true
+    failureFlash: true
   }));
 
   app.get("/lists", checkAuthenticated, function(req, res) {

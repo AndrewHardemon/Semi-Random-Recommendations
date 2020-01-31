@@ -55,7 +55,7 @@ app.use(flash());
 
 //For the logout
 app.use(methodOverride("_method"));
-
+app.use(flash())
 //Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
