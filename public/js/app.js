@@ -161,7 +161,11 @@ $("#submit").on("click", function (event) {
         //Replace spaces with -
         outputName = outputName.replace(/\ /g, '-')
         console.log(outputName)
-        //SAVE NAME
+        
+        //Get Rating
+        var rating = $("<h2>")
+        rating.text(`Average Rating: ${res.results[total].vote_average}`)
+
 
         //Get Description for the Movie/Show
         console.log(queryURL);
@@ -176,8 +180,6 @@ $("#submit").on("click", function (event) {
         if (artwork == null) {
           artwork = "https://www.gaskinsbennett.com/wp-content/uploads/2017/06/placeholder-500x500.jpg"  
         }
-
-        console.log(artwork)
 
         //Youtube ID
         var ytID = res.results[total].id;
@@ -209,7 +211,10 @@ $("#submit").on("click", function (event) {
 
           //OUTPUT CODE
           //Output the Title
-          $("#outputs").text(outputName)
+          var title = $("<h1>")
+          title.text(outputName)
+          $("#outputs").prepend(title)
+          $("#outputs").append(rating)
 
           //Output the Artwork
           var poster = $("<img>");
