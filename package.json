@@ -4,7 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "devStart": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "^8"
   },
   "keywords": [],
   "author": "",
