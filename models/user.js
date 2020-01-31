@@ -19,15 +19,15 @@ module.exports = function(sequelize, Datatypes) {
     email: {
       type: Datatypes.STRING,
       validate: {
-        isEmail: true,
-        len:[7,100]
+        isEmail: true
+        
       }
     },
 
     password: {
       type: Datatypes.STRING,
-      allowNull: false,
-      len:[8,20]
+      allowNull: false
+      
     }
   });
 
