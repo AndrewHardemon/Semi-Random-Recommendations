@@ -66,16 +66,7 @@ async function CreateUser(args){
        return user;
 }
 
-// async function _ValidatePermissionId(permissionid){
-//     const permissions = await db.permission.findOne({
-//         where:{id: permissionid}
-//         //select * from permission where id =1 LIMIT 1
-//     });
 
-//     if(permissions) return permissions;
-
-//     return null;
-// }
 module.exports = {
     UsernameExists,
     EmailExists,
