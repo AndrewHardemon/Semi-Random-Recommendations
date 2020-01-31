@@ -34,12 +34,11 @@ h2 {
   font-family: 'SfHollywoodHills-aPxE'
 }
 
-img {
+img, iframe{
   margin: 0 15px 15px 0;
   display: block;
   width: inherit;
 }
-
 
 /*Navbar Styling*/
 nav {

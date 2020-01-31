@@ -30,7 +30,11 @@ module.exports = function(app, passport, userInfo) {
   }));
 
   app.get("/lists", checkAuthenticated, function(req, res) {
-    res.render("lists");
+    res.render("lists", {name: req.user.firstname});
+  });
+
+  app.get("/games", checkAuthenticated, function(req, res) {
+    res.render("game", {name: req.user.firstname});
   });
 
   app.get("/logout", function(req, res) {
