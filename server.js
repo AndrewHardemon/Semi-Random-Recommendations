@@ -64,7 +64,7 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app, passport);
 require("./routes/htmlRoutes")(app, passport);
 
-app.listen(port, function(err){
+app.listen(process.env.PORT || port, function(err){
   if(err) {
     console.log(err)
   } else {
