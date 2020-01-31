@@ -65,6 +65,10 @@ nav {
   font-family: 'SfHollywoodHills-aPxE';
 }
 
+#guest-games, #guest-movies {
+  align-self: flex-start;
+}
+
 /* Login & Register Page Styling */
 #login-container, #register-container {
   margin: auto
