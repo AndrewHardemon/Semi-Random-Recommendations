@@ -8,6 +8,10 @@ module.exports = function(app, passport) {
     res.render("home", {name: req.user.firstname})  
   });
 
+  app.get("/games", checkAuthenticated, function(req, res) {
+    res.render("game", {name: req.user.firstname})  
+  });
+
   app.get("/profile", checkAuthenticated, function(req, res) {
     res.render("settings", {name: req.user.firstname, email: req.user.email});
   });
@@ -33,7 +37,7 @@ module.exports = function(app, passport) {
   }));
 
   app.get("/lists", checkAuthenticated, function(req, res) {
-    res.render("lists");
+    res.render("lists", {name: req.user.firstname});
   });
 
   app.get("/logout", function(req, res) {
