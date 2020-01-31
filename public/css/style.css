@@ -28,14 +28,91 @@ body {
   font-size: 24px;
 }
 
-#top-nav {
-  display: flex; 
-  justify-content: space-evenly;
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'SfHollywoodHills-aPxE'
 }
 
-.login, .logout {
-  display: flex; 
-  justify-content: flex-end;
+img {
+  margin: 0 15px 15px 0;
+  display: block;
+  width: inherit;
+}
+
+
+/*Navbar Styling*/
+nav {
+  background-color: #8e44ad;
+}
+
+#login-btn {
+  align-self: flex-end;
+}
+
+#topnav-home-btn {
+  font-size: 28px;
+}
+
+.btn {
+  color: #ffffff;
+  font-size: 18px;
+  background-color: #8e44ad;
+  border-color: #8e44ad;
+}
+
+.btn-info {
+  color: #ffffff;
+  font-family: 'SfHollywoodHills-aPxE';
+}
+
+/* Login & Register Page Styling */
+#login-container, #register-container {
+  margin: auto
+}
+
+.login-text {
+  font-family: 'SfHollywoodHills-aPxE';
+}
+
+#login-row, #register-row {
+  margin-top: 30%;
+}
+
+#login-col, #register-col {
+  margin: auto;
+  max-width: fit-content;
+  padding: 0;
+}
+
+#login-card-body, #register-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-form-input-div, #register-form-input-div {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+#login-links, #register-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  padding-right:10px;
+  margin: 0;
+}
+
+button {
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 10px;
+  max-width: fit-content;
+  display: flex;
+  align-self: center;
 }
 
 h1, h3 {
@@ -43,12 +120,9 @@ h1, h3 {
   font-family: 'SfHollywoodHills-aPxE';
 }
 
-nav {
-  background-color: #8e44ad;
-}
-
-.login-text {
-  font-family: 'SfHollywoodHills-aPxE';
+input {
+  font-family: sans-serif;
+  font-size: 12px;
 }
 
 #modal-text {
@@ -65,34 +139,113 @@ form {
   font-family: 'SfHollywoodHills-aPxE';
   font-size: 20px;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 select {
   font-family: sans-serif;
 }
 
-.btn {
-  color: #ffffff;
-  font-size: 24px;
-  background-color: #8e44ad;
-  border-color: #8e44ad;
-
-}
-
-.btn-info {
-  color: #ffffff;
-  font-family: 'SfHollywoodHills-aPxE';
-}
-
-
-
 p {
   font-family: sans-serif;
   font-size: 12px;
+  text-align: center;
 }
 
-img {
-  margin: 0 15px 15px 0;
+/*My Lists */
+#mylists-row {
+  margin-top: 30px;
+  min-height: 800px;
+}
+
+#mylists-h1 {
+  color: #e9ecef;
+  font-size: 28px;
+}
+
+#mylists-output, #mylists-sidenav {
+  padding: 20px;
+  background: #e9ecef;
+  height: 96%;
+  display: flex; 
+  justify-content: space-evenly;
+}
+
+#mylists-sidenav {
+  height: 90%;
+  background: none;
+  flex-direction: column;
+  justify-content: start;
+}
+
+#mylists-nav-btn, #mylists-add-btn {
+  min-width: -webkit-fill-available;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+/* Account Settings Styling */
+#settings-row {
+  margin-top: 30px;
+  min-height: 800px;
+}
+
+#settings-h1 {
+  color: #8e44ad;
+  font-size: 28px;
+  margin: 20px;
+}
+
+.settings-h2 {
+  margin-bottom: 0;
+  color: #8e44ad;
+}
+
+#settings-container {
+  padding: 20px;
+  background: #e9ecef;
+}
+
+#settings-flex-row {
+  justify-content: space-between;
+  align-items: baseline;
+  margin-left: 10px
+}
+
+.modal-content {
+  max-width: fit-content;
+}
+
+#update-name-button, #update-email-button, #update-password-button {
+  min-width: fit-content;
+  justify-content: center;
+  text-transform: uppercase;
+  margin: 0 20px 0 20px;
+  font-size: 12px;
+  align-self: baseline;
+}
+
+.update-password-form-input-div {
+  display: flex;
+  align-self: flex-end;
+}
+
+#update-name-submit-button, #update-email-submit-button, #update-password-submit-button {
+  margin: 10px;
+}
+
+.account-details-p {
+  flex-grow: 2;
+  text-align: start;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 768px) { 
+  nav {
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width: 576px) { 
@@ -105,14 +258,31 @@ img {
   .jumbotron {
     margin: 15px 0 15px 0;
   }
- }
+
+  #settings-flex-row {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .account-details-p {
+    font-size: 10pt
+  }
+
+  #update-name-button, #update-email-button, #update-password-button {
+    align-self: center;
+  }
+
+  .settings-h2 {
+    margin-top: 10px;
+  }
+
+}
+
 
 .conf-canvas{
   position: absolute;
   z-index: -1;
 }
-.top-container{
-  display: flex;
-  flex-direction: column;
-}
+
 
