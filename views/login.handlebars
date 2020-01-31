@@ -4,9 +4,9 @@
       <div class="card">
         <div class="card-header">
           <h1>Login</h1>
-          {{#if messages.error}} 
-            <p>{{messages.error}}</p>
-          {{/if}}          
+          {{#if error}}
+              <div class="alert alert-danger">{{error}}</div>
+          {{/if}}        
         </div><!--end of card header div-->
         <div class="card-body" id='login-card-body'>
           <form action="/login" method="POST">

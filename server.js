@@ -60,19 +60,9 @@ app.use(methodOverride("_method"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-
-app.use(function(req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
-});
-
 //Routes
 require("./routes/apiRoutes")(app, passport);
 require("./routes/htmlRoutes")(app, passport);
-
-
 
 app.listen(port, function(err){
   if(err) {

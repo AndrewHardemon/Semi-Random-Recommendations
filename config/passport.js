@@ -100,12 +100,12 @@ module.exports = function(passport, User, db) {
 
   //serialize
   passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user.firstname);
   });
 
   //deserialize
- passport.deserializeUser(function(obj, cb) {
-cb(null, obj);
-});
+  passport.deserializeUser(function(firstname, done) {
+    done(null, {firstname: firstname});
+  });
 
 };
