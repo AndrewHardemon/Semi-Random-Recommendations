@@ -1,6 +1,6 @@
 //Variables for later use
 var gURL = "https://rawg-video-games-database.p.rapidapi.com"
-var apiKey = "92f5c8ff853ffea4d1fed070c2f2d729"
+var apiKey = process.env.DB_GAME_API;
 var type = "";
 
 
@@ -36,7 +36,7 @@ $("#submit").on("click", function (event) {
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
-      "x-rapidapi-key": "91e8d6d8f0msh25ec06cf2a849c7p124390jsn08de1e0ef7e7"
+      "x-rapidapi-key": apiKey
     }
   }
 
