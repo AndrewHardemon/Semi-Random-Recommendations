@@ -86,30 +86,10 @@ $("#submit").on("click", function (event) {
         var game = res.results[ran];
         console.log(game);
 
-        //OUTPUT
-        //Output the Title
-        $("#outputs").text(game.name)
-
-        //Output the Artwork
-        var poster = $("<img>");
-        poster.attr("src", game.background_image);
-        poster.attr("id", "poster-image");
-        poster.attr("class", "rounded float-left");
-        poster.attr("style", "width:560px; height:315px");
-        $("#outputs").append(poster);
-
-
         //Third API for YouTube video
         settings.url = `${gURL}/games/${game.slug}`
         $.ajax(settings).done(function (res2) {
           console.log(res2);
-
-          // Output the Description
-          var desc = $("<p>");
-          desc.append(res2.description);
-          console.log(res2.description);
-          $("#outputs").append(desc);
-
           //New URL to get movie
           settings.url = `${gURL}/games/${game.slug}/movies`
           $.ajax(settings).done(function (res3) {
@@ -122,14 +102,45 @@ $("#submit").on("click", function (event) {
             }
             console.log(vidID)
 
-            //Output the video
+            //OUTPUT CODE
+            //Output the Title
+            var title = $("<h1>")
+            title.text(res2.name)
+            title.attr("id", "gameTitleH1")
+            $("#outputs").prepend(title)
+            
+
+            //Output the Artwork
+            var artwork = game.background_image
+            var poster = $("<img>");
+            if (artwork.includes('null')) {
+              console.log('Null in artwork!');
+              poster.attr("src", "https://via.placeholder.com/500")
+            } else {
+              poster.attr("src", artwork)
+            }
+            poster.attr("class", "rounded float-left");
+            poster.attr("id", "poster-image");
+            $("#outputs").append(poster);
+
+
+            //Output the youtube video
+            var trailerDiv = $("<div>");
+            trailerDiv.attr("class", "embed-responsive embed-responsive-4by3")
             var trailer = $("<video>");
             trailer.attr("src", vidID);
             trailer.attr("class", "video");
             trailer.attr("controls", "controls");
             trailer.attr("type", "video/mp4");
-            trailer.attr("style", "width:560px; height:315px");
-            $("#inputs").append(trailer);
+            $(trailerDiv).append(trailer);
+            $("#outputs").append(trailerDiv)
+
+            // Output the Description
+            var desc = $("<p>");
+            desc.append(res2.description_raw);
+            console.log(res2.description_raw);
+            $("#outputs").append(desc);
+
           });
         });//End of Third AJAX
       });//End of Second Ajax

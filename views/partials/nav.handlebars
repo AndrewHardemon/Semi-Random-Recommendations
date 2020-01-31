@@ -1,9 +1,25 @@
  <!--Navbar-->
 <nav class="navbar navbar-dark default-color">
   {{#if name}}  
-    <form id="topnav" action="/">
+    <form id="topnav" action="/home">
       <button type="submit" id="topnav-home-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Welcome {{name}}!</button>
     </form>
+    {{#if home}}
+      <form id='topnav' action="/games">
+          <button type="submit" id="search-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
+      </form>
+    {{else if games}}
+      <form id='topnav' action="/home">
+          <button type="submit" id="search-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
+      </form>
+    {{else}}
+      <form id='topnav' action="/home">
+          <button type="submit" id="search-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
+      </form>
+      <form id='topnav' action="/games">
+          <button type="submit" id="search-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
+      </form>
+    {{/if}}
     <form id="topnav" action="/lists">
       <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
     </form>
@@ -14,6 +30,15 @@
       <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
     </form>
   {{else}}
+    {{#if index}}
+      <form id='topnav' action="/guestGames">
+          <button type="submit" id="guest-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
+      </form>
+    {{else}}
+      <form id='topnav' action="/">
+          <button type="submit" id="guest-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
+      </form>
+    {{/if}}
   <form class="login" id ='topnav'action="/login">
     <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
   </form>

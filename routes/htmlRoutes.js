@@ -1,17 +1,13 @@
 module.exports = function(app, passport) {
 
   app.get("/", function(req, res) {
-    res.render("index");
+    res.render("index", {index: true});
   });
 
   app.get("/home", checkAuthenticated, function(req, res) {
-    res.render("home", {name: req.user.firstname})  
+    res.render("home", {name: req.user.firstname, home: true})  
   });
-
-  app.get("/profile", checkAuthenticated, function(req, res) {
-    res.render("settings", {name: req.user.firstname, email: req.user.email});
-  });
-
+  
   app.get("/login", function(req, res) {
     res.render("login", {error: req.flash('error')});
   });
@@ -33,7 +29,15 @@ module.exports = function(app, passport) {
   }));
 
   app.get("/lists", checkAuthenticated, function(req, res) {
-    res.render("lists");
+    res.render("lists", {name: req.user.firstname, lists: true});
+  });
+
+  app.get("/games", function(req, res) {
+    res.render("game", {name: req.user.firstname, games: true });
+  });
+
+  app.get("/guestGames", function(req, res) {
+    res.render("game");
   });
 
   app.get("/logout", function(req, res) {
