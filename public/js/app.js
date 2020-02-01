@@ -43,41 +43,26 @@ $("#submit").on("click", function (event) {
   var r4 = runtime.substring(r1 + 1, r2);
   console.log(r3);
   console.log(r4);
+
   //Gets source variable
-  source = $("#sources").val().trim();
-  console.log(source);
-  //Get id instead of name
-  if (source == "Netflix") {
-    console.log("netflix works")
-    //Push name
-    srcArray.push(source);
-    //Push id
-    source = 12;
-    srcArray.push(source);
-  } else if (source == "Hulu") {
-    console.log("hulu works")
-    srcArray.push(source);
-    source = 10;
-    srcArray.push(source);
-  } else if (source == "Prime Video") {
-    console.log("prime works")
-    srcArray.push(source);
-    source = 13;
-    srcArray.push(source);
-  } else if (source == "HBO") {
-    console.log("hbo works")
-    srcArray.push(source);
-    source = 93;
-    srcArray.push(source);
-  }
-  console.log(srcArray)
+  rating = $("#rating").val().trim();
+  console.log(rating);
+  //Splits runtime into first num and second num
+  var ratingIndex = rating.indexOf("-");
+  console.log(rating1);
+  //first num
+  var rating1 = rating.substring(0, ratingIndex);
+  //second num
+  var rating2 = rating.substring(ratingIndex +1);
+  console.log(rating1);
+  console.log(rating2);
 
   //Exclude adult content
   var adult = "&include_adult=false";
 
-  sources = $("#sources").val().trim();
   // var page; var randomPage;
-  var queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&api_key=${apiKey + adult}&language=en-US&page=1`
+  //var queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&api_key=${apiKey + adult}&language=en-US&page=1`
+  var queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&sort_by=vote_average.desc&vote_average.gte=${rating1}&vote_average.lte=${rating2}&api_key=${apiKey + adult}&language=en-US&page=1`
   console.log(queryURL);
 
   function totalAjax() {
@@ -161,7 +146,6 @@ $("#submit").on("click", function (event) {
         //Replace spaces with -
         outputName = outputName.replace(/\ /g, '-')
         console.log(outputName)
-        //SAVE NAME
 
         //Get Description for the Movie/Show
         console.log(queryURL);
@@ -171,7 +155,6 @@ $("#submit").on("click", function (event) {
 
         //Get poster
         var artwork = "https://image.tmdb.org/t/p/w500" + res.results[total].poster_path
-        //SAVE ARTWORK
         //var backdrop = "https://image.tmdb.org/t/p/w500" + res.results[total].backdrop_path
 
         //If null
@@ -180,8 +163,8 @@ $("#submit").on("click", function (event) {
           backdrop = "https://www.gaskinsbennett.com/wp-content/uploads/2017/06/placeholder-500x500.jpg"
         }
 
-
         console.log(artwork)
+
 
         //Youtube ID
         var ytID = res.results[total].id;

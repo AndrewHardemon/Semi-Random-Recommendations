@@ -130,6 +130,15 @@ $("#submit").on("click", function (event) {
             trailer.attr("type", "video/mp4");
             trailer.attr("style", "width:560px; height:315px");
             $("#inputs").append(trailer);
+
+            // Confetti
+            var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
+            var confetti = new ConfettiGenerator(confettiSettings);
+            confetti.render();
+
+            setTimeout(function () { confetti.clear() }, 5000);
+
+
           });
         });//End of Third AJAX
       });//End of Second Ajax
