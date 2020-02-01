@@ -8,6 +8,10 @@ module.exports = function(app, passport) {
     res.render("home", {name: req.user.firstname, home: true})  
   });
   
+  app.get("/profile", checkAuthenticated, function(req, res) {
+    res.render("settings", {name: req.user.firstname, email: req.user.email, home: true})
+  });
+  
   app.get("/login", function(req, res) {
     res.render("login", {error: req.flash('error')});
   });
