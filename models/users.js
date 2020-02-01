@@ -20,12 +20,14 @@ module.exports = function(sequelize, Sequelize) {
       type: Sequelize.STRING,
       validate: {
         isEmail: true
+        
       }
     },
 
     password: {
       type: Sequelize.STRING,
       allowNull: false
+      
     }
   });
 
