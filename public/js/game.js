@@ -1,6 +1,6 @@
 //Variables for later use
 var gURL = "https://rawg-video-games-database.p.rapidapi.com"
-var apiKey = process.env.DB_GAME_API;
+var apiKey = "91e8d6d8f0msh25ec06cf2a849c7p124390jsn08de1e0ef7e7";
 var type = "";
 
 
