@@ -1,11 +1,11 @@
-<div class="container" id="home">
+<div class="container" id='home'>
   {{> nav}}
 
   <div class="row"> <!--start of row one-->
     <div class="col"> <!--start of row one column-->
       <div class="jumbotron jumbotron-fluid jumbotron-dark">
         <div class="container">
-          <h1 class="display-4">Semi-Random Recommendations</h1>
+          <h1 class="display-4">Semi-Random Game Recommendations</h1>
           <h3 class="lead">Let us help you find something new and interesting to play!</h3>
         </div>
       </div><!--end of jumbotron-->
@@ -17,60 +17,62 @@
       <div class="container" id="inputs">
         <form>
           <div class="form-group row">
-            <div class="form-group col">
+
+            <div class='form-group col'>
               <label for="type" class="col-sm-3 col-form-label">Type</label>
-            </div><!--end of form group row one column one-->
-            <div class="form-group col">
+            </div>
+            <div class='form-group col'>
               <div class="form-check form-check-inline" id="type">
                   <input class="form-check-input" type="checkbox" id="single" value="single">
                   <label class="form-check-label" for="single">
                     Single Player
                   </label>
-                </div><!--end of Single Player form-check div-->
-            </div> <!--end of form group row one column two div-->
+                </div><!--end of movies form-check div-->
+            </div> <!--end of form group row one column two-->
             
-            <div class="form-group col"> 
+            <div class='form-group col'> 
               <div class="form-check form-check-inline" id="type">
                 <input class="form-check-input" type="checkbox" id="coop" value="coop">
                 <label class="form-check-label" for="coop">
                   Co-op
                 </label>
-              </div><!--end of Co-Op form-check div-->
-            </div><!--end of form group row one column three div -->
+              </div><!--end of TV form-check div-->
+            </div><!--end of form group row one column three -->
 
-            <div class="form-group col"> 
+            <div class='form-group col'> 
               <div class="form-check form-check-inline" id="type">
                 <input class="form-check-input" type="checkbox" id="multi" value="multi">
                 <label class="form-check-label" for="multi">
                   Multiplayer
                 </label>
-              </div><!--end of Multiplayer form-check div-->
-            </div><!--end of form group row one column three div -->
-          </div><!--end of form-group row one div-->
+              </div><!--end of TV form-check div-->
+            </div><!--end of form group row one column three -->
+
+          </div><!--end of form-group row one-->
         
           <div class="form-group row">
             <label for="genre" class=" form-group col-sm-3 col-form-label">Genre</label>
             <div class="form-group col-sm-9">
               <select class="form-control" id="genre">
-                  <option value="4">Action</option>
-                  <option value="51">Indie</option>
-                  <option value="3">Adventure</option>
-                  <option value="5">RPG</option>
-                  <option value="2">Shooter</option>
-                  <option value="10">Strategy</option>
-                  <option value="40">Casual</option>
-                  <option value="14">Simulation</option>
-                  <option value="7">Puzzle</option>
-                  <option value="11">Arcade</option>
-                  <option value="83">Platformer</option>
-                  <option value="1">Racing</option>
-                  <option value="15">Sports</option>
-                  <option value="59">Massively Multiplayer</option>
-                  <option value="19">Family</option>
-                  <option value="6">Fighting</option>
-                  <option value="28">Board Games</option>
-                  <option value="34">Educational</option>
-                  <option value="17">Card</option>
+                  <option value='4'>Action</option>
+                  <option value='51'>Indie</option>
+                  <option value='3'>Adventure</option>
+                  <option value='5'>RPG</option>
+                  <option value='2'>Shooter</option>
+                  <option value='10'>Strategy</option>
+                  <option value='40'>Casual</option>
+                  <option value='14'>Simulation</option>
+                  <option value='7'>Puzzle</option>
+                  <option value='11'>Arcade</option>
+                  <option value='83'>Platformer</option>
+                  <option value='1'>Racing</option>
+                  <option value='15'>Sports</option>
+                  <option value='59'>Massively Multiplayer</option>
+                  <option value='19'>Family</option>
+                  <option value='6'>Fighting</option>
+                  <option value='28'>Board Games</option>
+                  <option value='34'>Educational</option>
+                  <option value='17'>Card</option>
               </select>
             </div> <!--end of form group input column-->
           </div><!--end of form-group row two-->
@@ -79,30 +81,30 @@
             <label for="runtime" class="form-group col-sm-3 col-form-label">Consoles</label>
             <div class="form-group col-sm-9">
                 <select class="form-control" id="platforms">
-                  <option value="4">PC</option>
-                  <option value="18">PlayStation 4</option>
-                  <option value="16">PlayStation 3</option>
-                  <option value="15">PlayStation 2</option>
-                  <option value="27">Playstation</option>
-                  <option value="1">Xbox One</option>
-                  <option value="14">Xbox 360</option>
-                  <option value="80">Xbox</option>
-                  <option value="7">Nintendo Switch</option>
-                  <option value="10">Wii U</option>
-                  <option value="11">Wii</option>
-                  <option value="105">GameCube</option>
-                  <option value="83">Nintendo 64</option>
-                  <option value="79">SNES</option>
-                  <option value="49">NES</option>
-                  <option value="106">Dreamcast</option>
-                  <option value="19">PS Vita</option>
-                  <option value="17">PSP</option>
-                  <option value="8">Nintendo 3DS</option>
-                  <option value="13">Nintendo 3Di</option>
-                  <option value="9">Nintendo DS</option>
-                  <option value="3">iOS</option>
-                  <option value="21">Android</option>
-                  <option value="171">Web Games</option>
+                  <option value='4'>PC</option>
+                  <option value='18'>PlayStation 4</option>
+                  <option value='16'>PlayStation 3</option>
+                  <option value='15'>PlayStation 2</option>
+                  <option value='27'>Playstation</option>
+                  <option value='1'>Xbox One</option>
+                  <option value='14'>Xbox 360</option>
+                  <option value='80'>Xbox</option>
+                  <option value='7'>Nintendo Switch</option>
+                  <option value='10'>Wii U</option>
+                  <option value='11'>Wii</option>
+                  <option value='105'>GameCube</option>
+                  <option value='83'>Nintendo 64</option>
+                  <option value='79'>SNES</option>
+                  <option value='49'>NES</option>
+                  <option value='106'>Dreamcast</option>
+                  <option value='19'>PS Vita</option>
+                  <option value='17'>PSP</option>
+                  <option value='8'>Nintendo 3DS</option>
+                  <option value='13'>Nintendo 3Di</option>
+                  <option value='9'>Nintendo DS</option>
+                  <option value='3'>iOS</option>
+                  <option value='21'>Android</option>
+                  <option value='171'>Web Games</option>
                 </select>
             </div> <!--end of form group input column-->
           </div><!--end of form-group row three-->
@@ -111,33 +113,36 @@
             <label for="sources" class="form-group col-sm-3 col-form-label">Publishers</label>
             <div class="form-group col-sm-9">
               <select class="form-control" id="publishers">
-                <option value="0">Any Publisher</option>
-                <option value="354">EA</option>
-                <option value="20987">Microsoft</option>
-                <option value="918">Ubisoft</option>
-                <option value="308">Square Enix</option>
-                <option value="3408">Sega</option>
-                <option value="358">2K Games</option>
-                <option value="3399">Xbox 360</option>
-                <option value="19651">Feral Interactive</option>
-                <option value="10212">Sony</option>
-                <option value="339">Bethesda</option>
+                <option value='0'>Any Publisher</option>
+                <option value='354'>EA</option>
+                <option value='20987'>Microsoft</option>
+                <option value='918'>Ubisoft</option>
+                <option value='308'>Square Enix</option>
+                <option value='3408'>Sega</option>
+                <option value='358'>2K Games</option>
+                <option value='3399'>Xbox 360</option>
+                <option value='19651'>Feral Interactive</option>
+                <option value='10212'>Sony</option>
+                <option value='339'>Bethesda</option>
               </select>
             </div> <!--end of form group input column-->
           </div><!--end of form-group row four-->
 
-          <button type="submit" class="btn btn-info btn-block py-2" id="submit">Give me a recommendation!</button>
+          <button type="submit" class="btn btn-info btn-block py-2" id='submit'>Give me a recommendation!</button>
         </form>
+        <br>
       </div><!--end of form container-->
     </div> <!--end of row two column one-->
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><!--start of row two column two-->
       <div class="container" id="outputs">
-        
+
       </div><!--end of outputs container-->
     </div> <!--end of row two column two-->
-    
   </div> <!--end of row two-->
+  <canvas class="conf-canvas" id="my-canvas"></canvas>
 </div><!--end of container-->
 
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="../public/js/game.js"></script>
