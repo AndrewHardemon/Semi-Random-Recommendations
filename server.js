@@ -4,7 +4,7 @@ var exphbs = require("express-handlebars");
 var db = require("./models");
 var mysql = require("mysql")
 var app = express();
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 var passport = require("passport");
 var flash = require("express-flash");
 var session = require("express-session");
@@ -26,6 +26,7 @@ database.connect(function(err) {
   }
   console.log("MySQL connected") 
 })
+
 
 //Sync Database
 db.sequelize.sync().then(function() {
