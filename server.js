@@ -13,9 +13,9 @@ var methodOverride = require("method-override");
 
 
 //db connection
-var database = mysql.createConnection({
+var database = mysql.createConnection(process.env.JAWSDB_URL||{
   host: 'localhost',
-  user: process.env.DB_USER,
+  user: 'root',
   password: process.env.DB_PASS,
   database: "sequelize_passport"
 })
@@ -33,6 +33,8 @@ db.sequelize.sync().then(function() {
 }).catch(function(err) {
   console.log(err, "Something went wrong with the Database Update!")
 });
+
+
 
 //Middleware
 app.use("/public", express.static("public"));
@@ -64,6 +66,19 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app, passport);
 require("./routes/htmlRoutes")(app, passport);
 
+// User Route
+app.use('/user', require('./routes/userRoute.js'));
+
+//error handler
+app.use(function(err,req,res,next){
+  //set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err: {};
+
+  //render the error page
+  res.status(err.status || 500);
+})
+
 app.listen(port, function(err){
   if(err) {
     console.log(err)
@@ -71,3 +86,5 @@ app.listen(port, function(err){
     console.log('Server is live')
   }
 })
+
+module.exports = app;

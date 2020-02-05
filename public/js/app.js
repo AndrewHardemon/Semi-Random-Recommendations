@@ -3,12 +3,13 @@ var type = "movie" //or tv
 var genre = "genre"//name or id of genre
 var runtime = ""; //15 minute increments
 var sources = ""; //netflix or similar. uses other api
-var apiKey = "92f5c8ff853ffea4d1fed070c2f2d729"
-var guidebox = "b139d5197d801c46c57a4f1ea225f77be6935a0d"
+var apiKey = process.env.DB_MOVIE_API;
 var tries = 0;
 var finalResult = "";
 var descArray = [];
 var srcArray = [];
+var ytVid = "";
+var ytVidID = "";
 
 
 //Click Event
@@ -160,6 +161,11 @@ $("#submit").on("click", function (event) {
         //Replace spaces with -
         outputName = outputName.replace(/\ /g, '-')
         console.log(outputName)
+        
+        //Get Rating
+        var rating = $("<h2>")
+        rating.text(`Average Rating: ${res.results[total].vote_average}`)
+
 
         //Get Description for the Movie/Show
         console.log(queryURL);
@@ -168,46 +174,86 @@ $("#submit").on("click", function (event) {
         descArray.push(desc);
 
         //Get poster
-
         var artwork = "https://image.tmdb.org/t/p/w500" + res.results[total].poster_path
-        console.log(artwork)
 
-        //OUTPUT CODE
-
-        //Output the Title
-        $("#outputs").text(outputName)
-
-        //Output the Artwork
-        var poster = $("<img>");
-        if (artwork.includes('null')) {
-          console.log('Null in artwork!');
-          poster.attr("src", "https://via.placeholder.com/500")
-        } else {
-          poster.attr("src", artwork)
+        //If null
+        if (artwork == null) {
+          artwork = "https://www.gaskinsbennett.com/wp-content/uploads/2017/06/placeholder-500x500.jpg"  
         }
-        poster.attr("class", "rounded float-left");
-        $("#outputs").append(poster);
 
-        //Output the Description
-        var desc = $("<p>");
-        desc.append(descArray[0]);
-        console.log(descArray[0]);
-        $("#outputs").append(desc);
-        descArray = [];
+        //Youtube ID
+        var ytID = res.results[total].id;
+        console.log(ytID)
+        console.log(typeof (ytID))
+        if (ytID === null) {
+          //ytID = "157336"
+          totalAjax();
+        }
 
-        //Output if available on source
-        var sorc = $("<p>");
-        sorc.append(srcArray[0]);
-        console.log(srcArray[0]);
-        // $("#outputs").append
+        var ytURL = `http://api.themoviedb.org/3/movie/${ytID}/videos?api_key=92f5c8ff853ffea4d1fed070c2f2d729`
+        console.log(ytURL);
 
-        // Confetti
-        var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
-        var confetti = new ConfettiGenerator(confettiSettings);
-        confetti.render();
+        //Third AJAX
+        $.ajax({
+          url: ytURL,
+          method: "GET"
+        }).then(function (res2) {
+          console.log(res2)
+          if (res2.results.length === 0) {
+            totalAjax();
+          }
+          ytVid = `https://www.youtube.com/watch?v=${res2.results[0].key}`
+          //SAVE VIDEO LINK
+          ytVidID = "" + res2.results[0].key;
+          console.log(ytVid);
+          console.log(ytVid)
+          console.log(ytVidID)
 
-        setTimeout(function () { confetti.clear() }, 5000);
+          //OUTPUT CODE
+          $("#outputs").empty();
+          //Output the Title
+          var title = $("<h1>")
+          title.text(outputName)
+          $("#outputs").prepend(title)
+          $("#outputs").append(rating)
 
+          //Output the Artwork
+          var poster = $("<img>");
+          if (artwork.includes('null')) {
+            console.log('Null in artwork!');
+            poster.attr("src", "https://via.placeholder.com/500")
+          } else {
+            poster.attr("src", artwork)
+          }
+          poster.attr("class", "rounded float-left");
+          $("#outputs").append(poster);
+
+          //Output the youtube video
+          var trailerDiv = $("<div>");
+          trailerDiv.attr("class", "embed-responsive embed-responsive-4by3")
+          var trailer = $("<iframe>");
+          trailer.attr("id", ytID);
+          trailer.attr("class", "youtube");
+          trailer.attr("src", `https://www.youtube.com/embed/${ytVidID}` )
+          $(trailerDiv).append(trailer);
+          $("#outputs").append(trailerDiv)
+
+          //Output the Description
+          var desc = $("<p>");
+          desc.append(descArray[0]);
+          console.log(descArray[0]);
+          $("#outputs").append(desc);
+          descArray = [];
+
+  
+          // Confetti
+          var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
+          var confetti = new ConfettiGenerator(confettiSettings);
+          confetti.render();
+
+          setTimeout(function () { confetti.clear() }, 5000);
+
+        });
       });
     });
   } //end of function

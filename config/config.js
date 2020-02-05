@@ -10,8 +10,8 @@ module.exports = {
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "testdb",
+    "password": process.env.DB_PASS,
+    "database": "sequelize_passport",
     "host": "localhost",
     "dialect": "mysql",
     "logging": false

@@ -34,12 +34,11 @@ h2 {
   font-family: 'SfHollywoodHills-aPxE'
 }
 
-img {
+img, iframe{
   margin: 0 15px 15px 0;
   display: block;
   width: inherit;
 }
-
 
 /*Navbar Styling*/
 nav {
@@ -64,6 +63,10 @@ nav {
 .btn-info {
   color: #ffffff;
   font-family: 'SfHollywoodHills-aPxE';
+}
+
+#guest-games, #guest-movies {
+  align-self: flex-start;
 }
 
 /* Login & Register Page Styling */
@@ -119,6 +122,8 @@ h1, h3 {
   text-align: center;
   font-family: 'SfHollywoodHills-aPxE';
 }
+
+
 
 input {
   font-family: sans-serif;
@@ -240,6 +245,11 @@ p {
   text-align: start;
   margin-left: 10px;
   font-size: 18px;
+}
+
+/*Games page styling */
+#gameTitleH1 {
+  margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 768px) { 
