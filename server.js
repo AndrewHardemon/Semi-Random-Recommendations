@@ -38,7 +38,7 @@ db.sequelize.sync().then(function() {
 
 
 //Middleware
-app.use("/public", express.static("public"));
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 //Passport strategies
