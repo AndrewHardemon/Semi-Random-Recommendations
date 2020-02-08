@@ -170,7 +170,7 @@ $("#submit").on("click", function (event) {
           totalAjax();
         }
 
-        var ytURL = `http://api.themoviedb.org/3/movie/${ytID}/videos?api_key=92f5c8ff853ffea4d1fed070c2f2d729`
+        var ytURL = `https://api.themoviedb.org/3/movie/${ytID}/videos?api_key=92f5c8ff853ffea4d1fed070c2f2d729`
         console.log(ytURL);
 
         //Third AJAX
