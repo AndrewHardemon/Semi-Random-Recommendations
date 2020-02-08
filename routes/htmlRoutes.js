@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = function(app, passport) {
 
   app.get("/", function(req, res) {
@@ -7,6 +9,10 @@ module.exports = function(app, passport) {
   app.get("/home", checkAuthenticated, function(req, res) {
     res.render("home", {name: req.user.firstname, home: true})  
   });
+
+  app.get("/api_key", function(req, res) {
+    res.send(process.env.api_key);
+  })
   
   app.get("/profile", checkAuthenticated, function(req, res) {
     res.render("settings", {name: req.user.firstname, email: req.user.email, home: true})

@@ -3,7 +3,7 @@ var type = "movie" //or tv
 var genre = "genre"//name or id of genre
 var runtime = ""; //15 minute increments
 var sources = ""; //netflix or similar. uses other api
-var apiKey = "92f5c8ff853ffea4d1fed070c2f2d729";
+//var apiKey = "92f5c8ff853ffea4d1fed070c2f2d729";
 var tries = 0;
 var finalResult = "";
 var descArray = [];
@@ -59,11 +59,15 @@ $("#submit").on("click", function (event) {
 
   //Exclude adult content
   var adult = "&include_adult=false";
-
-  // var page; var randomPage;
-  //var queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&api_key=${apiKey + adult}&language=en-US&page=1`
+  $.ajax({
+    url: "/api_key",
+    method: "GET"
+  }).then(function (response) {
+  var apiKey = response;
   var queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&sort_by=vote_average.desc&vote_average.gte=${rating1}&vote_average.lte=${rating2}&api_key=${apiKey + adult}&language=en-US&page=1`
   console.log(queryURL);
+  // totalAjax(queryURL);
+  // });
 
   function totalAjax() {
     $.ajax({
@@ -238,4 +242,5 @@ $("#submit").on("click", function (event) {
     });
   } //end of function
   totalAjax();
-})
+  });//get api key
+})//submit
