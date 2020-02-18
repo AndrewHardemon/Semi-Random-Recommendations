@@ -210,7 +210,7 @@ $("#submit").on("click", function (event) {
             var title = $("<h1>")
             title.text(outputName)
             $("#outputs").prepend(title)
-            $("#outputs").append(rating)
+            // $("#outputs").append(rating)
 
             //Output the Artwork
             var poster = $("<img>");
