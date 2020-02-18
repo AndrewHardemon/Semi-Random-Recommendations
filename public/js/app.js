@@ -18,6 +18,11 @@ $(".form-check-input").on("click", function (event) {
   $(".form-check-input").attr("disabled", "true");
 });
 
+  //If you don't click either type it defaults to movie
+  if(!type){
+    type = "movie";
+  }
+
 //Submitting the data
 $("#submit").on("click", function (event) {
   event.preventDefault();
@@ -103,6 +108,11 @@ $("#submit").on("click", function (event) {
           //Gets the total results
           var outputArray = res.results;
           console.log(outputArray);
+
+          //Restart if no results
+          if(outputArray.length === 0){
+            totalAjax();
+          }
 
           //Get title/name if its tv or movie
           var outputName;
