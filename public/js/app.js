@@ -180,7 +180,7 @@ $("#submit").on("click", function (event) {
           console.log(typeof (ytID))
           if (ytID === null) {
             //ytID = "157336"
-            descArray.empty();
+            descArray = [];
             totalAjax();
           }
 
@@ -194,7 +194,7 @@ $("#submit").on("click", function (event) {
           }).then(function (res2) {
             console.log(res2)
             if (res2.results.length === 0) {
-              descArray.empty();
+              descArray = [];
               totalAjax();
             }
             ytVid = `https://www.youtube.com/watch?v=${res2.results[0].key}`
