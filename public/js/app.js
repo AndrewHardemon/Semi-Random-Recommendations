@@ -3,7 +3,6 @@ var type = "movie" //or tv
 var genre = "genre"//name or id of genre
 var runtime = ""; //15 minute increments
 var sources = ""; //netflix or similar. uses other api
-var apiKey = "92f5c8ff853ffea4d1fed070c2f2d729";
 var tries = 0;
 var finalResult = "";
 var descArray = [];
@@ -18,6 +17,11 @@ $(".form-check-input").on("click", function (event) {
   console.log(type);
   $(".form-check-input").attr("disabled", "true");
 });
+
+  //If you don't click either type it defaults to movie
+  if(!type){
+    type = "movie";
+  }
 
 //Submitting the data
 $("#submit").on("click", function (event) {
@@ -43,219 +47,211 @@ $("#submit").on("click", function (event) {
   var r4 = runtime.substring(r1 + 1, r2);
   console.log(r3);
   console.log(r4);
+
   //Gets source variable
-  source = $("#sources").val().trim();
-  console.log(source);
-  //Get id instead of name
-  if (source == "Netflix") {
-    console.log("netflix works")
-    //Push name
-    srcArray.push(source);
-    //Push id
-    source = 12;
-    srcArray.push(source);
-  } else if (source == "Hulu") {
-    console.log("hulu works")
-    srcArray.push(source);
-    source = 10;
-    srcArray.push(source);
-  } else if (source == "Prime Video") {
-    console.log("prime works")
-    srcArray.push(source);
-    source = 13;
-    srcArray.push(source);
-  } else if (source == "HBO") {
-    console.log("hbo works")
-    srcArray.push(source);
-    source = 93;
-    srcArray.push(source);
-  }
-  console.log(srcArray)
+  rating = $("#rating").val().trim();
+  console.log(rating);
+  //Splits runtime into first num and second num
+  var ratingIndex = rating.indexOf("-");
+  console.log(rating1);
+  //first num
+  var rating1 = rating.substring(0, ratingIndex);
+  //second num
+  var rating2 = rating.substring(ratingIndex + 1);
+  console.log(rating1);
+  console.log(rating2);
 
   //Exclude adult content
   var adult = "&include_adult=false";
+  $.ajax({
+    url: "/api_key",
+    method: "GET"
+  }).then(function (response) {
+    var apiKey = response;
+    var queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&sort_by=vote_average.desc&vote_average.gte=${rating1}&vote_average.lte=${rating2}&api_key=${apiKey + adult}&language=en-US&page=1`
+    console.log(queryURL);
+    // totalAjax(queryURL);
+    // });
 
-  sources = $("#sources").val().trim();
-  // var page; var randomPage;
-  var queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&api_key=${apiKey + adult}&language=en-US&page=1`
-  console.log(queryURL);
-
-  function totalAjax() {
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function (response) {
-      var res = response;
-
-      //Gets total number of pages
-      var page = res.total_pages;
-      console.log(page)
-
-      //Randomizes Page Number
-      var randomPage = Math.floor((Math.random() * page) + 1);
-      console.log(randomPage);
-
-      //Updates QueryURL
-      queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&api_key=${apiKey}&language=en-US&page=${randomPage}`
-
-
-      //Second Ajax
+    function totalAjax() {
       $.ajax({
         url: queryURL,
         method: "GET"
       }).then(function (response) {
         var res = response;
-        console.log(res);
-        console.log(res.total_results);
 
-        //Gets Random Number
-        var total = Math.floor((Math.random() * 20));
-        console.log(total);
+        //Gets total number of pages
+        var page = res.total_pages;
+        console.log(page)
 
-        //Gets the total results
-        var outputArray = res.results;
-        console.log(outputArray);
+        //Randomizes Page Number
+        var randomPage = Math.floor((Math.random() * page) + 1);
+        console.log(randomPage);
 
-        //Get title/name if its tv or movie
-        var outputName;
-        if (type == "movie") {
-          console.log("movie = title")
-          outputName = outputArray[total].title;
-          console.log(outputName);
-        } else {
-          console.log("tv = name")
-          outputName = outputArray[total].name;
-          console.log(outputName);
-        }
-        console.log(outputName);
-
-        //Get rid of special characters
-        function cleanUpSpecialChars(str) {
-          return str
-            .replace(/[ÀÁÂÃÄÅÆ]/g, "A")
-            .replace(/[àáâãäåæ]/g, "a")
-            .replace(/[Ç]/g, "C")
-            .replace(/[ç]/g, "c")
-            .replace(/[ÈÉÊË]/g, "E")
-            .replace(/[èéêë]/g, "e")
-            .replace(/[ÌÍÎÏ]/g, "I")
-            .replace(/[ìíîï]/g, "i")
-            .replace(/[Ñ]/g, "N")
-            .replace(/[ñ]/g, "n")
-            .replace(/[ÒÓÔÕÖØ]/g, "O")
-            .replace(/[òóôõöø]/g, "o")
-            .replace(/[Š]/g, "S")
-            .replace(/[š]/g, "s")
-            .replace(/[ß]/g, "ss")
-            .replace(/[ÚÛÜÙ]/g, "U")
-            .replace(/[ùúûü]/g, "u")
-            .replace(/[ÝŸ]/g, "Y")
-            .replace(/[ýÿ]/g, "y")
-            .replace(/[Ž]/g, "Z")
-            .replace(/[ž]/g, "Z")
-            .replace(/[^\x00-\x7F]+/g, '') //non ascii
-          //.replace(/[^a-z0-9]/gi,''); // final clean up
-        }
-        cleanUpSpecialChars(outputName);
-
-        //Replace spaces with -
-        outputName = outputName.replace(/\ /g, '-')
-        console.log(outputName)
-        
-        //Get Rating
-        var rating = $("<h2>")
-        rating.text(`Average Rating: ${res.results[total].vote_average}`)
+        //Updates QueryURL
+        queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&api_key=${apiKey}&language=en-US&page=${randomPage}`
 
 
-        //Get Description for the Movie/Show
-        console.log(queryURL);
-        console.log(res.results[total].overview)
-        var desc = res.results[total].overview
-        descArray.push(desc);
-
-        //Get poster
-        var artwork = "https://image.tmdb.org/t/p/w500" + res.results[total].poster_path
-
-        //If null
-        if (artwork == null) {
-          artwork = "https://www.gaskinsbennett.com/wp-content/uploads/2017/06/placeholder-500x500.jpg"  
-        }
-
-        //Youtube ID
-        var ytID = res.results[total].id;
-        console.log(ytID)
-        console.log(typeof (ytID))
-        if (ytID === null) {
-          //ytID = "157336"
-          totalAjax();
-        }
-
-        var ytURL = `http://api.themoviedb.org/3/movie/${ytID}/videos?api_key=92f5c8ff853ffea4d1fed070c2f2d729`
-        console.log(ytURL);
-
-        //Third AJAX
+        //Second Ajax
         $.ajax({
-          url: ytURL,
+          url: queryURL,
           method: "GET"
-        }).then(function (res2) {
-          console.log(res2)
-          if (res2.results.length === 0) {
+        }).then(function (response) {
+          var res = response;
+          console.log(res);
+          console.log(res.total_results);
+
+          //Gets Random Number
+          var total = Math.floor((Math.random() * 20));
+          console.log(total);
+
+          //Gets the total results
+          var outputArray = res.results;
+          console.log(outputArray);
+
+          //Restart if no results
+          if(outputArray.length === 0){
             totalAjax();
           }
-          ytVid = `https://www.youtube.com/watch?v=${res2.results[0].key}`
-          //SAVE VIDEO LINK
-          ytVidID = "" + res2.results[0].key;
-          console.log(ytVid);
-          console.log(ytVid)
-          console.log(ytVidID)
 
-          //OUTPUT CODE
-          $("#outputs").empty();
-          //Output the Title
-          var title = $("<h1>")
-          title.text(outputName)
-          $("#outputs").prepend(title)
-          $("#outputs").append(rating)
-
-          //Output the Artwork
-          var poster = $("<img>");
-          if (artwork.includes('null')) {
-            console.log('Null in artwork!');
-            poster.attr("src", "https://via.placeholder.com/500")
+          //Get title/name if its tv or movie
+          var outputName;
+          if (type == "movie") {
+            console.log("movie = title")
+            outputName = outputArray[total].title;
+            console.log(outputName);
           } else {
-            poster.attr("src", artwork)
+            console.log("tv = name")
+            outputName = outputArray[total].name;
+            console.log(outputName);
           }
-          poster.attr("class", "rounded float-left");
-          $("#outputs").append(poster);
+          console.log(outputName);
 
-          //Output the youtube video
-          var trailerDiv = $("<div>");
-          trailerDiv.attr("class", "embed-responsive embed-responsive-4by3")
-          var trailer = $("<iframe>");
-          trailer.attr("id", ytID);
-          trailer.attr("class", "youtube");
-          trailer.attr("src", `https://www.youtube.com/embed/${ytVidID}` )
-          $(trailerDiv).append(trailer);
-          $("#outputs").append(trailerDiv)
+          //Get rid of special characters
+          function cleanUpSpecialChars(str) {
+            return str
+              .replace(/[ÀÁÂÃÄÅÆ]/g, "A")
+              .replace(/[àáâãäåæ]/g, "a")
+              .replace(/[Ç]/g, "C")
+              .replace(/[ç]/g, "c")
+              .replace(/[ÈÉÊË]/g, "E")
+              .replace(/[èéêë]/g, "e")
+              .replace(/[ÌÍÎÏ]/g, "I")
+              .replace(/[ìíîï]/g, "i")
+              .replace(/[Ñ]/g, "N")
+              .replace(/[ñ]/g, "n")
+              .replace(/[ÒÓÔÕÖØ]/g, "O")
+              .replace(/[òóôõöø]/g, "o")
+              .replace(/[Š]/g, "S")
+              .replace(/[š]/g, "s")
+              .replace(/[ß]/g, "ss")
+              .replace(/[ÚÛÜÙ]/g, "U")
+              .replace(/[ùúûü]/g, "u")
+              .replace(/[ÝŸ]/g, "Y")
+              .replace(/[ýÿ]/g, "y")
+              .replace(/[Ž]/g, "Z")
+              .replace(/[ž]/g, "Z")
+              .replace(/[^\x00-\x7F]+/g, '') //non ascii
+            //.replace(/[^a-z0-9]/gi,''); // final clean up
+          }
+          cleanUpSpecialChars(outputName);
 
-          //Output the Description
-          var desc = $("<p>");
-          desc.append(descArray[0]);
-          console.log(descArray[0]);
-          $("#outputs").append(desc);
-          descArray = [];
+          //Replace spaces with -
+          outputName = outputName.replace(/\ /g, '-')
+          console.log(outputName)
 
-  
-          // Confetti
-          var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
-          var confetti = new ConfettiGenerator(confettiSettings);
-          confetti.render();
+          //Get Description for the Movie/Show
+          console.log(queryURL);
+          console.log(res.results[total].overview)
+          var desc = res.results[total].overview
+          descArray.push(desc);
 
-          setTimeout(function () { confetti.clear() }, 5000);
+          //Get poster
+          var artwork = "https://image.tmdb.org/t/p/w500" + res.results[total].poster_path
 
+          //If null
+          if (artwork == null) {
+            artwork = "https://www.gaskinsbennett.com/wp-content/uploads/2017/06/placeholder-500x500.jpg"
+          }
+
+          //Youtube ID
+          var ytID = res.results[total].id;
+          console.log(ytID)
+          console.log(typeof (ytID))
+          if (ytID === null) {
+            //ytID = "157336"
+            descArray = [];
+            totalAjax();
+          }
+
+          var ytURL = `https://api.themoviedb.org/3/movie/${ytID}/videos?api_key=92f5c8ff853ffea4d1fed070c2f2d729`
+          console.log(ytURL);
+
+          //Third AJAX
+          $.ajax({
+            url: ytURL,
+            method: "GET"
+          }).then(function (res2) {
+            console.log(res2)
+            if (res2.results.length === 0) {
+              descArray = [];
+              totalAjax();
+            }
+            ytVid = `https://www.youtube.com/watch?v=${res2.results[0].key}`
+            //SAVE VIDEO LINK
+            ytVidID = "" + res2.results[0].key;
+            console.log(ytVid);
+            console.log(ytVid)
+            console.log(ytVidID)
+
+            //OUTPUT CODE
+            $("#outputs").empty();
+            //Output the Title
+            var title = $("<h1>")
+            title.text(outputName)
+            $("#outputs").prepend(title)
+            // $("#outputs").append(rating)
+
+            //Output the Artwork
+            var poster = $("<img>");
+            if (artwork.includes('null')) {
+              console.log('Null in artwork!');
+              poster.attr("src", "https://via.placeholder.com/500")
+            } else {
+              poster.attr("src", artwork)
+            }
+            poster.attr("class", "rounded float-left");
+            $("#outputs").append(poster);
+
+            //Output the youtube video
+            var trailerDiv = $("<div>");
+            trailerDiv.attr("class", "embed-responsive embed-responsive-4by3")
+            var trailer = $("<iframe>");
+            trailer.attr("id", ytID);
+            trailer.attr("class", "youtube");
+            trailer.attr("src", `https://www.youtube.com/embed/${ytVidID}`)
+            $(trailerDiv).append(trailer);
+            $("#outputs").append(trailerDiv)
+
+            //Output the Description
+            var desc = $("<p>");
+            desc.append(descArray[0]);
+            console.log(descArray[0]);
+            $("#outputs").append(desc);
+            descArray = [];
+
+
+            // Confetti
+            var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
+            var confetti = new ConfettiGenerator(confettiSettings);
+            confetti.render();
+
+            setTimeout(function () { confetti.clear() }, 5000);
+
+          });
         });
       });
-    });
-  } //end of function
-  totalAjax();
-})
+    } //end of function
+    totalAjax();
+  });//get api key
+})//submit
