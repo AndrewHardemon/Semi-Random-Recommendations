@@ -39,7 +39,8 @@ In the future, we would like our website to:
   * Allow users to provide the streaming services they subscribe to and only return content they already have access to.
 
 ### Logged Out
-![Logged Out](ReadmeImg\SemiRandom.PNG)
+![Logged Out](https://github.com/AeroAtlas/Project2Beta/blob/master/ReadmeImg/SemiRandom.PNG)
 
 ### Logged In
-![Logged In](ReadmeImg\SemiRandomLoggedIn.PNG)
+![Logged In](https://github.com/AeroAtlas/Project2Beta/blob/master/ReadmeImg/SemiRandomLoggedIn.PNG)
+
