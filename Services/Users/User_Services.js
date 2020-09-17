@@ -1,5 +1,5 @@
 const {UsernameExists, EmailExists, CreateUser, FindUser} = require('./User_DB');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 async function ValidateUserExists(firstname, email){
