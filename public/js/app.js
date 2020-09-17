@@ -53,7 +53,7 @@ $("#submit").on("click", function (event) {
   console.log(rating);
   //Splits runtime into first num and second num
   var ratingIndex = rating.indexOf("-");
-  console.log(rating1);
+  console.log(ratingIndex);
   //first num
   var rating1 = rating.substring(0, ratingIndex);
   //second num

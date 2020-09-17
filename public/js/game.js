@@ -90,6 +90,9 @@ $("#submit").on("click", function (event) {
           console.log(ran);
           var game = res.results[ran];
           console.log(game);
+          if(!game){
+            game = "Skyrim"
+          }
 
           //Third API for YouTube video
           settings.url = `${gURL}/games/${game.slug}`
@@ -107,6 +110,9 @@ $("#submit").on("click", function (event) {
               }
               console.log(vidID)
 
+              //Clear old code
+              $("#outputs").empty();
+
               //OUTPUT CODE
               //Output the Title
               var title = $("<h1>")
@@ -118,7 +124,11 @@ $("#submit").on("click", function (event) {
               //Output the Artwork
               var artwork = game.background_image
               var poster = $("<img>");
-              if (artwork.includes('null')) {
+              console.log(artwork)
+              if(!artwork){
+                poster.attr("src", "https://via.placeholder.com/500")
+              }
+              else if (artwork.includes('null')) {
                 console.log('Null in artwork!');
                 poster.attr("src", "https://via.placeholder.com/500")
               } else {
