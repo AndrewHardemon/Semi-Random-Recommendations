@@ -1,6 +1,3 @@
-
-
-
 //Click Event
 $(".form-check-input").on("click", function (event) {
   type = $(this).val();

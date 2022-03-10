@@ -122,28 +122,116 @@ module.exports = function (app) {
       totalAjax();
     } catch (err) {
       console.log(err)
+      res.json(err)
     }
 
+  }),
 
-  })
+    app.post("/api/game", async function (req, res) {
+      try {
+        const data = JSON.parse(Object.keys(req.body)[0])
+        const { genre, platforms, publishers, type } = data
+      //Variables for later use
+      // var gURL = "https://rawg-video-games-database.p.rapidapi.com"
+      var gURL = "https://api.rawg.io/api"
+      var apiKey = "&key=" + process.env.GAME_KEY
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": `${gURL}`,
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+          "x-rapidapi-key": process.env.GAME_KEY
+        }
+      }
+      let settingsUrl = "";
+      //Ajax for Genre
+      if (publishers == 0) {
+        settingsUrl = `${gURL}/games?genres=${genre}&platforms=${platforms}` + apiKey
+      } else {
+        settingsUrl = `${gURL}/games?genres=${genre}&platforms=${platforms}&publishers=${publishers}` + apiKey
+      }
 
-  app.get("/api/examples", function (req, res) {
-    db.Example.findAll({}).then(function (dbExamples) {
-      res.json(dbExamples);
-    });
-  });
+      //Add tags based on type (nothing by default)
+      if (type === 31) {
+        settingsUrl += `&tags=singleplayer`
+      } else if (type === 18) {
+        settingsUrl += `&tags=coop`
+      } else if (type === 7) {
+        settingsUrl += `&tags=multiplayer`
+      }
 
-  // Create a new example
-  app.post("/api/examples", function (req, res) {
-    db.Example.create(req.body).then(function (dbExample) {
-      res.json(dbExample);
-    });
-  });
+      //First AJAX - Get page of results from tags
+      const response = await axios(settingsUrl)
+      console.log(response.data.count);
+      //If no results
+      if (response.data.count === 0) {
+        //Show there is nothing
+        console.log("nothing")
+      }
 
-  // Delete an example by id
-  app.delete("/api/examples/:id", function (req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
-      res.json(dbExample);
-    });
-  });
+      //Get random Page Number
+      var random = Math.floor((Math.random() * Math.ceil(response.data.count / 20)) + 1);
+      //Doesn't go above 500
+      if (random > 500) {
+        random = Math.floor((Math.random() * 500) + 1);
+      }
+      console.log(random)
+
+      //Add page number to URL
+      settingsUrl += `&page=${random}`
+
+
+      //Second AJAX
+      const res1 = await axios(settingsUrl)
+      // console.log(res1.data);
+      //Get random result Number
+      var ran = Math.floor((Math.random() * res1.data.results.length));
+      console.log(ran);
+      var game = res1.data.results[ran];
+      // var {background_image, metacritic, esrb_rating, short_screenshots} = game
+      // console.log(game);
+      if (!game) {
+        game = {slug: "Skyrim"}
+      }
+
+      //Third API for YouTube video
+      settingsUrl = `https://rawg.io/api/games/${game.slug}?key=${process.env.GAME_KEY}`
+      const res2 = await axios(settingsUrl)
+      // console.log(res2.data);
+      //New URL to get movie
+      // settingsUrl = `${gURL}/games?name=${game.slug}/movies` + apiKey
+      // const res3 = await axios(settingsUrl)
+      // console.log(res3);
+      const final = {
+        game, res2:res2.data //, res3
+      }
+      // console.log(final)
+      res.json(final)
+    } catch(err){
+      console.log(err)
+      res.json(err)
+    }
+
+    })
+  // app.get("/api/examples", function (req, res) {
+  //   db.Example.findAll({}).then(function (dbExamples) {
+  //     res.json(dbExamples);
+  //   });
+  // });
+
+  // // Create a new example
+  // app.post("/api/examples", function (req, res) {
+  //   db.Example.create(req.body).then(function (dbExample) {
+  //     res.json(dbExample);
+  //   });
+  // });
+
+  // // Delete an example by id
+  // app.delete("/api/examples/:id", function (req, res) {
+  //   db.Example.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+  //     res.json(dbExample);
+  //   });
+  // });
 };
