@@ -117,6 +117,7 @@ $("#submit").on("click", async function (event) {
     trailer.attr("src", ytVid)
     trailerDiv.append(trailer);
     console.log(trailerDiv[0])
+    $("#videoOutput").html("")
     $("#videoOutput").append(trailerDiv[0])
 
 
