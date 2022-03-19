@@ -1,5 +1,5 @@
 //Variables for later use
-var gURL = "https://rawg-video-games-database.p.rapidapi.com"
+// var gURL = "https://api.rawg.io/api/games"
 var type = "";
 
 
@@ -27,149 +27,118 @@ $("#submit").on("click", function (event) {
   var publishers = $("#publishers").val().trim();
   console.log(publishers);
 
-
-  //0th Ajax to get game_key
-  $.ajax({
-    url: "/game_key",
-    method: "GET"
-  }).then(function (response) {
-    //Settings for Ajax
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": `${gURL}`,
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
-        "x-rapidapi-key": response
-      }
+  async function findGame() {
+    try {
+    //Ajax for Genre
+    let url = ""
+    if (publishers == 0) {
+      url = `?genres=${genre}&platforms=${platforms}`
+    } else {
+      url = `?genres=${genre}&platforms=${platforms}&publishers=${publishers}`
     }
 
-    function findGame() {
-      //Ajax for Genre
-      if (publishers == 0) {
-        settings.url = `${gURL}/games?genres=${genre}&platforms=${platforms}`
-      } else {
-        settings.url = `${gURL}/games?genres=${genre}&platforms=${platforms}&publishers=${publishers}`
-      }
-
-      //Add tags based on type (nothing by default)
-      if (type === 31) {
-        settings.url += `&tags=singleplayer`
-      } else if (type === 18) {
-        settings.url += `&tags=coop`
-      } else if (type === 7) {
-        settings.url += `&tags=multiplayer`
-      }
-
-      //First AJAX - Get page of results from tags
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        //If no results
-        if (response.count === 0) {
-          //Show there is nothing
-        }
-
-        //Get random Page Number
-        var random = Math.floor((Math.random() * Math.ceil(response.count / 20)) + 1);
-        //Doesn't go above 500
-        if (random > 500) {
-          random = Math.floor((Math.random() * 500) + 1);
-        }
-        console.log(random)
-
-        //Add page number to URL
-        settings.url += `&page=${random}`
-
-
-        //Second AJAX
-        $.ajax(settings).done(function (res) {
-          console.log(res);
-          //Get random result Number
-          var ran = Math.floor((Math.random() * res.results.length));
-          console.log(ran);
-          var game = res.results[ran];
-          console.log(game);
-          if(!game){
-            game = "Skyrim"
-          }
-
-          //Third API for YouTube video
-          settings.url = `${gURL}/games/${game.slug}`
-          $.ajax(settings).done(function (res2) {
-            console.log(res2);
-            //New URL to get movie
-            settings.url = `${gURL}/games/${game.slug}/movies`
-            $.ajax(settings).done(function (res3) {
-              console.log(res3);
-              var vidID = "";
-              if (res3.results.length > 0) {
-                vidID = res3.results[0].data.max;
-              } else {
-                vidID = "https://steamcdn-a.akamaihd.net/steam/apps/256675367/movie_max.mp4"
-              }
-              console.log(vidID)
-
-              //Clear old code
-              $("#outputs").empty();
-
-              //OUTPUT CODE
-              //Output the Title
-              var title = $("<h1>")
-              title.text(res2.name)
-              title.attr("id", "gameTitleH1")
-              $("#outputs").prepend(title)
-
-
-              //Output the Artwork
-              var artwork = game.background_image
-              var poster = $("<img>");
-              console.log(artwork)
-              if(!artwork){
-                poster.attr("src", "https://via.placeholder.com/500")
-              }
-              else if (artwork.includes('null')) {
-                console.log('Null in artwork!');
-                poster.attr("src", "https://via.placeholder.com/500")
-              } else {
-                poster.attr("src", artwork)
-              }
-              poster.attr("class", "rounded float-left");
-              poster.attr("id", "poster-image");
-              $("#outputs").append(poster);
-
-
-              //Output the youtube video
-              var trailerDiv = $("<div>");
-              trailerDiv.attr("class", "embed-responsive embed-responsive-4by3")
-              var trailer = $("<video>");
-              trailer.attr("src", vidID);
-              trailer.attr("class", "video");
-              trailer.attr("controls", "controls");
-              trailer.attr("type", "video/mp4");
-
-              $(trailerDiv).append(trailer);
-              $("#outputs").append(trailerDiv)
-
-              // Output the Description
-              var desc = $("<p>");
-              desc.append(res2.description_raw);
-              console.log(res2.description_raw);
-              $("#outputs").append(desc);
-
-              // Confetti
-              var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
-              var confetti = new ConfettiGenerator(confettiSettings);
-              confetti.render();
-
-              setTimeout(function () { confetti.clear() }, 5000);
-
-            });
-          });//End of Third AJAX
-        });//End of Second Ajax
-      });//End of First Ajax
+    //Add tags based on type (nothing by default)
+    if (type === 31) {
+      url += `&tags=singleplayer`
+    } else if (type === 18) {
+      url += `&tags=coop`
+    } else if (type === 7) {
+      url += `&tags=multiplayer`
     }
-    findGame(); //Whole Function
-    //End of submit event
-  });
+
+    //First AJAX - Get page of results from tags
+    // const res2 = await $.ajax({
+    //   url: "/api/game",
+    //   type: "POST",
+    //   data: url,
+    //   dataType: "JSON"
+    // })
+    console.log(url)
+    const res2 = await $.ajax({
+      url: "/api/game",
+      type: "POST",
+      data: {url},
+      dataType: "JSON"
+    })
+    console.log("find game")
+    // $.ajax("/api/game", {method: "POST"}).done(function (response) {
+    //   console.log(response);
+    //If no results
+
+    console.log(res2);
+    var vidID = "";
+    if (res2?.results?.length > 0) {
+      vidID = res2?.results[0]?.data?.max;
+    } else {
+      vidID = "https://steamcdn-a.akamaihd.net/steam/apps/256675367/movie_max.mp4"
+    }
+    console.log(vidID)
+
+    
+    //Clear old code
+    $("#outputs").empty();
+
+    //OUTPUT CODE
+    //Output the Title
+    var title = $("<h1>")
+    title.text(res2.name)
+    title.attr("id", "gameTitleH1")
+    $("#outputs").prepend(title)
+
+
+    //Output the Artwork
+    var artwork = res2.background_image
+    var poster = $("<img>");
+    console.log(artwork)
+    if (!artwork) {
+      poster.attr("src", "https://via.placeholder.com/500")
+    }
+    else if (artwork.includes('null')) {
+      console.log('Null in artwork!');
+      poster.attr("src", "https://via.placeholder.com/500")
+    } else {
+      poster.attr("src", artwork)
+    }
+    poster.attr("class", "rounded float-left");
+    poster.attr("id", "poster-image");
+    $("#outputs").append(poster);
+
+
+    //Output the youtube video
+    var trailerDiv = $("<div>");
+    trailerDiv.attr("class", "embed-responsive embed-responsive-4by3")
+    var trailer = $("<video>");
+    trailer.attr("src", vidID);
+    trailer.attr("class", "video");
+    trailer.attr("controls", "controls");
+    trailer.attr("type", "video/mp4");
+
+    $(trailerDiv).append(trailer);
+    $("#gameVideo").append(trailerDiv)
+
+    // Output the Description
+    var desc = $("<p>");
+    desc.append(res2.description_raw);
+    console.log(res2.description_raw);
+    $("#outputs").append(desc);
+
+    // Confetti
+    // var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
+    // var confetti = new ConfettiGenerator(confettiSettings);
+    // confetti.render();
+
+    // setTimeout(function () { confetti.clear() }, 5000);
+
+    //     });
+    //   });//End of Third AJAX
+    // });//End of Second Ajax
+    // });//End of First Ajax
+  } catch(err){
+    console.log(err)
+  }
+
+  }
+  findGame(); //Whole Function
+        
+
 });

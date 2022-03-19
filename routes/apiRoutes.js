@@ -123,8 +123,55 @@ module.exports = function(app) {
   } catch (err) {
     console.log(err)
   }
-    
-   
+  })
+
+  app.post("/api/game", async function(req, res) {
+    let {url} = req.body
+    // const data = JSON.parse(Object.keys(req.body)[0])
+    console.log(url)
+    var gURL = "https://api.rawg.io/api/games"
+    var api = "&key="+process.env.GAME_KEY
+    try {
+      const {data: response} = await axios.get(gURL + url + api)
+      // console.log(response)
+      if (response.count === 0) {
+        console.log("nothing")
+      }
+
+      //Get random Page Number
+      var random = Math.floor((Math.random() * Math.ceil(response.count / 20)) + 1);
+      //Doesn't go above 500
+      if (random > 500) {
+        random = Math.floor((Math.random() * 500) + 1);
+      }
+      console.log(random)
+
+      //Add page number to URL
+      url += `&page=${random}`
+
+      const {data: result} = await axios.get(gURL + url + api)
+      //Second AJAX
+      //Get random resultult Number
+      var ran = Math.floor((Math.random() * result.results.length));
+      console.log(ran);
+      var game = result.results[ran];
+      console.log(game);
+      if(!game){
+        game = "Skyrim"
+      }
+
+    //Third API for YouTube video
+    let url2 = `${gURL+api}/games/${game.slug}`
+      res.json({...game, youtubeLink: url2})
+    } catch (err) {
+      console.log(err.message)
+      res.json(err)
+    }
+      // $.ajax(settings).done(function (res2) {
+      // console.log(res2);
+        //New URL to get movie
+      // url = `${gURL+api}/games/${game.slug}/movies` //Not sure if need
+        // $.ajax(settings).done(function (res3) {
   })
 
   app.get("/api/examples", function(req, res) {

@@ -85,6 +85,7 @@ $("#submit").on("click", async function (event) {
 
     //OUTPUT CODE
     $("#outputs").empty();
+    $("#videoOutput").empty();
     //Output the Title
     var title = $("<h1>")
     title.text(outputName)
