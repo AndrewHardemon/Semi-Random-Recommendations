@@ -194,7 +194,7 @@ $("#submit").on("click", async function (event) {
   trailer.attr("type", "video/mp4");
 
   $(trailerDiv).append(trailer);
-  // $("#videoOutput").html("")
+  $("#videoOutput").html("")
   $("#videoOutput").append(trailerDiv)
 
   // Output the Description
