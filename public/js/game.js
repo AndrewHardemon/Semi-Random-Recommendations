@@ -209,6 +209,4 @@ $("#submit").on("click", async function (event) {
   // confetti.render();
 
   // setTimeout(function () { confetti.clear() }, 5000);
-
-
 });
