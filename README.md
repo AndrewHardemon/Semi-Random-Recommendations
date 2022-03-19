@@ -43,3 +43,6 @@ In the future, we would like our website to:
 
 ### Logged In
 ![Logged In](https://github.com/AeroAtlas/Project2Beta/blob/master/ReadmeImg/SemiRandomLoggedIn.PNG)
+
+### Utilities
+TMDB - API Link for the movie generator
