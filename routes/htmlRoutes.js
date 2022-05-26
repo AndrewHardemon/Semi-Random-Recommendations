@@ -10,13 +10,13 @@ module.exports = function(app, passport) {
     res.render("home", {name: req.user.firstname, home: true})  
   });
 
-  app.get("/api_key", function(req, res) {
-    res.send(process.env.api_key);
-  })
+  // app.get("/api_key", function(req, res) {
+  //   res.send(process.env.api_key);
+  // })
 
-  app.get("/game_key", function(req, res) {
-    res.send(process.env.game_key);
-  })
+  // app.get("/game_key", function(req, res) {
+  //   res.send(process.env.game_key);
+  // })
   
   app.get("/profile", checkAuthenticated, function(req, res) {
     res.render("settings", {name: req.user.firstname, email: req.user.email, home: true})
