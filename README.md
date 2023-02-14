@@ -2,7 +2,7 @@
 A group project created by Andrew, Dan, Ivanna, and Serguei
 
 ## Live Site 
-https://project2beta.herokuapp.com/
+https://semi-random-recommendations.herokuapp.com/
 
 ### Description
 Our website helps users find new content to watch or play by randomly suggesting a movie, TV show, or game based on the user’s preferences. Registering for an account allows users to save their recommendations and return to them later.
