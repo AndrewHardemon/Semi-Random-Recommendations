@@ -15,7 +15,8 @@ Our website provides users with semi-random recommendations for movies, TV shows
 
 ### Team Responsibilities
 #### Andrew
-  * Updated old Javascript 
+  * Front and Back End Overhaul
+  * Front-End Javascript
   * Added trailer videos
   * Found and utilized API for game recommendations page
 

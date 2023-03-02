@@ -123,11 +123,4 @@ $("#submit").on("click", async function (event) {
     console.log(err)
   }
 
-  // Confetti
-  // var confettiSettings = { "target": 'my-canvas', 'rotate': true, "max": "80", "size": "1", "animate": true, "props": ["circle", "square", "triangle", "line"], "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]], "clock": "25", "rotate": false, "width": "958", "height": "923" };
-  // var confetti = new ConfettiGenerator(confettiSettings);
-  // confetti.render();
-
-  // setTimeout(function () { confetti.clear() }, 5000);
-});//get api key
-// })//submit
+});
