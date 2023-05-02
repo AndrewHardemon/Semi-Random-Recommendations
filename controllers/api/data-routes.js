@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const axios = require("axios");
-const cleanUpSpecialChars = require("../helpers/cleanUpSpecialChars")
+const cleanUpSpecialChars = require("../../helpers/cleanUpSpecialChars")
 require("dotenv").config()
 
 
@@ -8,27 +8,27 @@ require("dotenv").config()
 router.post("/movie", async function (req, res) {
   console.log(req.body)
   //Hardcoded for now. Will become an option on login
-  var adult = "&include_adult=false";
+  let adult = "&include_adult=false";
   //Temperary fix for AJAX
-  const data = JSON.parse(Object.keys(req.body)[0])
+  const data = req.body //JSON.parse(Object.keys(req.body)[0])
   const { type, genre, rating1, rating2, r3, r4 } = data;
-  var queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&sort_by=vote_average.desc&vote_average.gte=${rating1}&vote_average.lte=${rating2}&api_key=${process.env.API_KEY + adult}&language=en-US&page=1`
+  let queryURL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&sort_by=vote_average.desc&vote_average.gte=${rating1}&vote_average.lte=${rating2}&api_key=${process.env.API_KEY + adult}&language=en-US&page=1`
 
   try {
     const responseFull = await axios.get(queryURL)
     const response = responseFull.data
     //Gets total number of pages
-    var page = response.total_pages;
+    let page = response.total_pages;
     console.log(page)
 
     //repeating function to prevent empty result
     async function totalAjax() {
       //Randomizes Page Number
-      var randomPage = Math.floor((Math.random() * page) + 1);
+      let randomPage = Math.floor((Math.random() * page) + 1);
       console.log(randomPage);
 
       //Updates QueryURL
-      query2URL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&sort_by=vote_average.desc&vote_average.gte=${rating1}&vote_average.lte=${rating2}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&api_key=${process.env.API_KEY + adult}&language=en-US&page=${randomPage}`
+      let query2URL = `https://api.themoviedb.org/3/discover/${type}?with_genres=${genre}&sort_by=vote_average.desc&vote_average.gte=${rating1}&vote_average.lte=${rating2}&with_runtime.gte=${r3}&with_runtime.lte=${r4}&api_key=${process.env.API_KEY + adult}&language=en-US&page=${randomPage}`
 
       //Second Axios
       const dataFull = await axios.get(query2URL)
@@ -36,11 +36,11 @@ router.post("/movie", async function (req, res) {
       console.log(data.total_results);
 
       //Gets Random Number
-      var total = Math.floor((Math.random() * 20));
+      let total = Math.floor((Math.random() * 20));
       console.log(total);
 
       //Gets the total results
-      var outputArray = data.results;
+      let outputArray = data.results;
       // console.log(outputArray);
 
       //Restart if no results
@@ -49,7 +49,7 @@ router.post("/movie", async function (req, res) {
       }
 
       //Get title/name if its tv or movie
-      var outputName;
+      let outputName;
       if (type == "movie") {
         console.log("movie = title")
         outputName = outputArray[total].title;
@@ -70,10 +70,10 @@ router.post("/movie", async function (req, res) {
 
       //Get Description for the Movie/Show
       console.log(outputArray[total].overview)
-      var description = outputArray[total].overview
+      let description = outputArray[total].overview
 
       //Get poster
-      var artwork = "https://image.tmdb.org/t/p/w500" + outputArray[total].poster_path
+      let artwork = "https://image.tmdb.org/t/p/w500" + outputArray[total].poster_path
 
       //If null
       if (artwork == null) {
@@ -81,10 +81,10 @@ router.post("/movie", async function (req, res) {
       }
 
       //Youtube ID
-      var ytID = outputArray[total].id;
+      let ytID = outputArray[total].id;
       if (!ytID) ytID = "157336"
 
-      var ytURL = `https://api.themoviedb.org/3/movie/${ytID}/videos?api_key=${process.env.API_KEY}`
+      let ytURL = `https://api.themoviedb.org/3/movie/${ytID}/videos?api_key=${process.env.API_KEY}`
 
       //Third AJAX
       const youtubeFull = await axios.get(ytURL)
@@ -104,13 +104,13 @@ router.post("/movie", async function (req, res) {
 
 router.post("/game", async function (req, res) {
   try {
-    const data = JSON.parse(Object.keys(req.body)[0])
+    const data = req.body //JSON.parse(Object.keys(req.body)[0])
     const { genre, platforms, publishers, type } = data
-    //Variables for later use
-    // var gURL = "https://rawg-video-games-database.p.rapidapi.com"
-    var gURL = "https://api.rawg.io/api"
-    var apiKey = "&key=" + process.env.GAME_KEY
-    var settings = {
+    //letiables for later use
+    // let gURL = "https://rawg-video-games-database.p.rapidapi.com"
+    let gURL = "https://api.rawg.io/api"
+    let apiKey = "&key=" + process.env.GAME_KEY
+    let settings = {
       "async": true,
       "crossDomain": true,
       "url": `${gURL}`,
@@ -147,7 +147,7 @@ router.post("/game", async function (req, res) {
     }
 
     //Get random Page Number
-    var random = Math.floor((Math.random() * Math.ceil(response.data.count / 20)) + 1);
+    let random = Math.floor((Math.random() * Math.ceil(response.data.count / 20)) + 1);
     //Doesn't go above 500
     if (random > 500) {
       random = Math.floor((Math.random() * 500) + 1);
@@ -162,10 +162,10 @@ router.post("/game", async function (req, res) {
     const res1 = await axios(settingsUrl)
     // console.log(res1.data);
     //Get random result Number
-    var ran = Math.floor((Math.random() * res1.data.results.length));
+    let ran = Math.floor((Math.random() * res1.data.results.length));
     console.log(ran);
-    var game = res1.data.results[ran];
-    // var {background_image, metacritic, esrb_rating, short_screenshots} = game
+    let game = res1.data.results[ran];
+    // let {background_image, metacritic, esrb_rating, short_screenshots} = game
     // console.log(game);
     if (!game) {
       game = { slug: "Skyrim" }

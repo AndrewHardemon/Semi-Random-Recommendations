@@ -58,19 +58,10 @@ $("#submit").on("click", async function (event) {
   //Exclude adult content
   const data = { type, genre, rating1, rating2, r3, r4 }
   try {
-    // const resOne = await fetch("/api/movie", {
-    //   method: "POST",
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // })
-    // const res = await resOne.json()
     const res = await $.ajax({
       url: "/api/movie",
       type: "POST",
-      data: JSON.stringify(data),
+      data: data,
       dataType: "JSON"
     })
 
@@ -118,9 +109,26 @@ $("#submit").on("click", async function (event) {
     $("#videoOutput").html("")
     $("#videoOutput").append(trailerDiv[0])
 
+    $("#lists").removeClass("hidden")
+    $("#lists").addClass("flex-center")
+
 
   } catch (err) {
     console.log(err)
   }
 
 });
+
+$(".save-item").each(function(){
+  $(this).on("click", async function (event) {
+    event.preventDefault()
+    console.log({name: $("#outputs").children("h1").text().trim(), list_id: $(this).attr("data-id")})
+    const data = await $.ajax({
+      method: "POST",
+      url: "/api/list/item",
+      data: {name: $("#outputs").children("h1").text().trim(), list_id: $(this).attr("data-id")},
+      dataType: "JSON"
+    })
+    console.log(data)
+  })
+})

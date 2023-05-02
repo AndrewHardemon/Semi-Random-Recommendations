@@ -130,6 +130,11 @@
           <button type="submit" class="btn btn-info btn-block py-2" id='submit'>Give me a recommendation!</button>
         <div id="videoOutput"></div>
         </form>
+        <div id="lists" class="hidden">
+            {{#each lists}}
+              <button data-id="{{id}}" class="save-item">Add to {{title}}</button>
+            {{/each}}
+          </div>
         <br>
       </div><!--end of form container-->
     </div> <!--end of row two column one-->

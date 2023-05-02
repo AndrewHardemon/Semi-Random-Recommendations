@@ -28,7 +28,7 @@ $("#submit").on("click", async function (event) {
   const data = await $.ajax({
     url: "/api/game",
     type: "POST",
-    data: JSON.stringify({ genre, platforms, publishers, type: parseInt(type) }),
+    data: { genre, platforms, publishers, type: parseInt(type) },
     dataType: "JSON"
   })
   console.log(data)
@@ -91,4 +91,22 @@ $("#submit").on("click", async function (event) {
   console.log(res2.description_raw);
   $("#outputs").append(desc);
 
+  $("#lists").removeClass("hidden")
+  $("#lists").addClass("flex-center")
+
 });
+
+
+$(".save-item").each(function(){
+  $(this).on("click", async function (event) {
+    event.preventDefault()
+    console.log({name: $("#outputs").children("h1").text().trim(), id: $(this).attr("data-id")})
+    const data = await $.ajax({
+      method: "POST",
+      url: "/api/list/item",
+      data: {name: $("#outputs").children("h1").text().trim(), id: $(this).attr("data-id")},
+      dataType: "JSON"
+    })
+    console.log(data)
+  })
+})

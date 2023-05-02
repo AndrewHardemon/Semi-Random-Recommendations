@@ -2,9 +2,9 @@ const router = require('express').Router();
 const { User } = require('../../models');
 
 router.post('/', (req, res) => {
+  console.log(req.body)
   User.create({
-    username: req.body.username,
-    password: req.body.password
+    ...req.body
   })
     .then(dbUserData => {
       req.session.save(() => {
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
 router.post('/login', (req, res) => {
   User.findOne({
     where: {
-      username: req.body.username
+      email: req.body.email
     }
   }).then(dbUserData => {
     if (!dbUserData) {
