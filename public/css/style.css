@@ -45,6 +45,20 @@ nav {
   background-color: #8e44ad;
 }
 
+#lists {
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.flex-center {
+  display:flex;
+  justify-content:center; 
+  flex-wrap: wrap;
+}
+
 #login-btn {
   align-self: flex-end;
 }
@@ -188,6 +202,18 @@ p {
   min-width: -webkit-fill-available;
   justify-content: center;
   text-transform: uppercase;
+}
+
+#mylists-nav-btn {
+  width: 200px;
+}
+
+.list-btn {
+  color: black;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 /* Account Settings Styling */

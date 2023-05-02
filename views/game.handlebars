@@ -130,6 +130,11 @@
           <button type="submit" class="btn btn-info btn-block py-2" id='submit'>Give me a recommendation!</button>
         <div id="videoOutput"></div>
         </form>
+        <div id="lists" class="hidden">
+            {{#each lists}}
+              <button data-id="{{id}}" class="save-item">Add to {{title}}</button>
+            {{/each}}
+          </div>
         <br>
       </div><!--end of form container-->
     </div> <!--end of row two column one-->
@@ -143,10 +148,6 @@
   <canvas class="conf-canvas" id="my-canvas"></canvas>
 </div><!--end of container-->
 
-   <!--jQuery-->
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
+
   
   <script src="/js/game.js"></script>

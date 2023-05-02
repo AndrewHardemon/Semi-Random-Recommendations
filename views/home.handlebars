@@ -99,6 +99,11 @@
 
           <button type="submit" class="btn btn-info btn-block py-2" id="submit">Give me a recommendation!</button>
           <div id="videoOutput"></div>
+          <div id="lists" class="hidden">
+            {{#each lists}}
+              <button data-id="{{id}}" class="save-item">Add to {{title}}</button>
+            {{/each}}
+          </div>
         </form>
       </div><!--end of form container-->
     </div><!--end of row two column one - inputs col-->
@@ -112,11 +117,7 @@
   </div> <!--end of row two-->
 </div><!--end of container-->
 
-  <!--jQuery-->
-<script
-src="https://code.jquery.com/jquery-3.4.1.js"
-integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-crossorigin="anonymous"></script>
+
 <!--Our JS-->
-<script src="/js/app.js"></script>
+<script src="/js/home.js"></script>
 
