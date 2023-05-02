@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User, List, Item } = require('../../models');
-const checkAuthenticated = require("../../helpers/checkAuthenticated")
+const checkAuthenticated = require("../../helpers/checkAuthenticated.js")
 
 router.post('/', checkAuthenticated, (req, res) => {
   console.log(req.body)
