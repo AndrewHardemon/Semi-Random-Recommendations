@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const { User, List, Item } = require('../../models');
-const checkAuthenticated = require("../../helpers/checkAuthenticated.js")
 
-router.post('/', checkAuthenticated, (req, res) => {
+router.post('/', (req, res) => {
   console.log(req.body)
   List.create({
     ...req.body,
@@ -17,7 +16,7 @@ router.post('/', checkAuthenticated, (req, res) => {
     });
 });
 
-router.post('/item', checkAuthenticated, (req, res) => {
+router.post('/item', (req, res) => {
   console.log(req.body.name, req.body.list_id)
   Item.create({
     name: req.body.name,
