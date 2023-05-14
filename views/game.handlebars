@@ -16,19 +16,20 @@
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> <!--start of row two column one-->
       <div class="container" id="inputs">
         <form>
-          <div class="form-group row">
 
+          <div class="form-group row">
             <div class='form-group col'>
               <label for="type" class="col-sm-3 col-form-label">Type</label>
             </div>
+
             <div class='form-group col'>
               <div class="form-check form-check-inline" id="type">
                   <input class="form-check-input" type="checkbox" id="single" value="single">
                   <label class="form-check-label" for="single">
                     Single Player
                   </label>
-                </div><!--end of movies form-check div-->
-            </div> <!--end of form group row one column two-->
+                </div>
+            </div>
             
             <div class='form-group col'> 
               <div class="form-check form-check-inline" id="type">
@@ -36,8 +37,8 @@
                 <label class="form-check-label" for="coop">
                   Co-op
                 </label>
-              </div><!--end of TV form-check div-->
-            </div><!--end of form group row one column three -->
+              </div>
+            </div>
 
             <div class='form-group col'> 
               <div class="form-check form-check-inline" id="type">
@@ -45,10 +46,10 @@
                 <label class="form-check-label" for="multi">
                   Multiplayer
                 </label>
-              </div><!--end of TV form-check div-->
-            </div><!--end of form group row one column three -->
+              </div>
+            </div>
 
-          </div><!--end of form-group row one-->
+          </div>
         
           <div class="form-group row">
             <label for="genre" class=" form-group col-sm-3 col-form-label">Genre</label>
@@ -74,8 +75,8 @@
                   <option value='34'>Educational</option>
                   <option value='17'>Card</option>
               </select>
-            </div> <!--end of form group input column-->
-          </div><!--end of form-group row two-->
+            </div>
+          </div>
 
           <div class="form-group row">
             <label for="runtime" class="form-group col-sm-3 col-form-label">Consoles</label>
@@ -106,8 +107,8 @@
                   <option value='21'>Android</option>
                   <option value='171'>Web Games</option>
                 </select>
-            </div> <!--end of form group input column-->
-          </div><!--end of form-group row three-->
+            </div>
+          </div>
 
           <div class="form-group row">
             <label for="sources" class="form-group col-sm-3 col-form-label">Publishers</label>
@@ -124,29 +125,28 @@
                 <option value='10212'>Sony</option>
                 <option value='339'>Bethesda</option>
               </select>
-            </div> <!--end of form group input column-->
-          </div><!--end of form-group row four-->
+            </div>
+          </div>
 
           <button type="submit" class="btn btn-info btn-block py-2" id='submit'>Give me a recommendation!</button>
         <div id="videoOutput"></div>
-        </form>
         <div id="lists" class="hidden">
             {{#each lists}}
               <button data-id="{{id}}" class="save-item">Add to {{title}}</button>
             {{/each}}
           </div>
-        <br>
-      </div><!--end of form container-->
-    </div> <!--end of row two column one-->
+        </form>
+      </div>
+    </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><!--start of row two column two-->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
       <div class="container" id="outputs">
 
-      </div><!--end of outputs container-->
-    </div> <!--end of row two column two-->
-  </div> <!--end of row two-->
-  <canvas class="conf-canvas" id="my-canvas"></canvas>
-</div><!--end of container-->
+      </div>
+    </div>
+  </div>
+
+</div>
 
 
   

@@ -3,10 +3,6 @@ const checkAuthenticated = require("../helpers/checkAuthenticated")
 const { List, Item, User } = require("../models/");
 require("dotenv").config();
 
-
-
-
-
 router.get("/home", checkAuthenticated, async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.userId, {include:[List]})
@@ -88,7 +84,7 @@ router.get("/lists/:id", checkAuthenticated, async (req, res) => {
   }
 });
 
-router.get("/games", async (req, res) => {
+router.get("/games", checkAuthenticated, async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.userId, {include:[List]})
     const user = userData.get({ plain: true })

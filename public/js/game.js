@@ -100,11 +100,18 @@ $("#submit").on("click", async function (event) {
 $(".save-item").each(function(){
   $(this).on("click", async function (event) {
     event.preventDefault()
-    console.log({name: $("#outputs").children("h1").text().trim(), id: $(this).attr("data-id")})
+    const saveData = {
+      list_id: $(this).attr("data-id"),
+      name: $("#outputs").children("h1").text().trim(),
+      image: $("#outputs").children("img").attr("src").trim(),
+      description: $("#outputs").children("h5").text().trim()
+    }
+    console.log(saveData)
+    
     const data = await $.ajax({
       method: "POST",
       url: "/api/list/item",
-      data: {name: $("#outputs").children("h1").text().trim(), id: $(this).attr("data-id")},
+      data: saveData,
       dataType: "JSON"
     })
     console.log(data)
