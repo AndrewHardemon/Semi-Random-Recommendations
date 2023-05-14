@@ -12,6 +12,9 @@ Item.init(
     description: {
       type: DataTypes.STRING,
     },
+    image: {
+      type: DataTypes.STRING,
+    },
     list_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -19,7 +22,15 @@ Item.init(
         model: 'list',
         key: 'id'
       }
-    }
+    },
+    // user_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    //   references: {
+    //     model: 'user',
+    //     key: 'id'
+    //   }
+    // }
   },
   {
     sequelize,

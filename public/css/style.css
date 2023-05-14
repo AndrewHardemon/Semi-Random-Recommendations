@@ -216,6 +216,14 @@ p {
   justify-content: center;
 }
 
+.list-item {
+  background-color: #8e44ad;
+  border: 2px solid black;
+  padding: 5px;
+  height: 30px;
+color: white;
+}
+
 /* Account Settings Styling */
 #settings-row {
   margin-top: 30px;

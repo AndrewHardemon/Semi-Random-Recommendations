@@ -20,8 +20,9 @@ router.post('/', checkAuthenticated, (req, res) => {
 router.post('/item', checkAuthenticated, (req, res) => {
   console.log(req.body.name, req.body.list_id)
   Item.create({
-    name: req.body.name,
-    list_id: req.body.list_id
+    ...req.body
+    // name: req.body.name,
+    // list_id: req.body.list_id
   })
     .then(dbItemData => {
       res.json(dbItemData);
