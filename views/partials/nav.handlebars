@@ -1,77 +1,77 @@
 <!--Navbar-->
 <nav class="navbar navbar-dark default-color">
   {{#if name}}
-    <form id="topnav" action="/home">
+    <a id="topnav" href="/home">
       <button type="submit" id="topnav-home-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Welcome {{name}}!</button>
-    </form>
+    </a>
     {{#if home}}
-      <form id='topnav' action="/games">
+      <a id='topnav' href="/games">
         <button type="submit" id="search-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
-      </form>
-      <form id="topnav" action="/lists">
+      </a>
+      <a id="topnav" href="/lists">
         <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
-      </form>
-      <form id="topnav" action="/profile">
+      </a>
+      <a id="topnav" href="/profile">
         <button type="submit" id="account-settings" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Account Settings</button>
-      </form>
-      <form id='topnav' action='/logout'>
+      </a>
+      <a id='topnav' href='/logout'>
         <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
-      </form>
+      </a>
     {{else if games}}
-      <form id='topnav' action="/home">
+      <a id='topnav' href="/home">
         <button type="submit" id="search-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
-      </form>
-      <form id="topnav" action="/lists">
+      </a>
+      <a id="topnav" href="/lists">
         <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
-      </form>
-      <form id="topnav" action="/profile">
+      </a>
+      <a id="topnav" href="/profile">
         <button type="submit" id="account-settings" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Account Settings</button>
-      </form>
-      <form id='topnav' action='/logout'>
+      </a>
+      <a id='topnav' href='/logout'>
         <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
-      </form>
+      </a>
     {{else if lists}}
-      <form id='topnav' action="/home">
+      <a id='topnav' href="/home">
         <button type="submit" id="search-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
-      </form>
-      <form id='topnav' action="/games">
+      </a>
+      <a id='topnav' href="/games">
         <button type="submit" id="search-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
-      </form>
-      <form id="topnav" action="/profile">
+      </a>
+      <a id="topnav" href="/profile">
         <button type="submit" id="account-settings" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Account Settings</button>
-      </form>
-      <form id='topnav' action='/logout'>
+      </a>
+      <a id='topnav' href='/logout'>
         <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
-      </form>
+      </a>
     {{else}}
-      <form id='topnav' action="/home">
+      <a id='topnav' href="/home">
         <button type="submit" id="search-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
-      </form>
-      <form id='topnav' action="/games">
+      </a>
+      <a id='topnav' href="/games">
         <button type="submit" id="search-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
-      </form>
-      <form id="topnav" action="/lists">
+      </a>
+      <a id="topnav" href="/lists">
         <button type="submit" id="my-lists" class="btn btn-info btn-md my-2 my-sm-0 ml-3">My Lists</button>
-      </form>
-      <form id='topnav' action='/logout'>
+      </a>
+      <a id='topnav' href='/logout'>
         <button type="submit" id="logout-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Logout</button>
-      </form>
+      </a>
     {{/if}}
   {{else}}
     {{#if index}}
-      <form id='topnav' action="/guestGames">
+      <a id='topnav' href="/guestGames">
         <button type="submit" id="guest-games" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Games</button>
-      </form>
-      <form class="login" id='topnav' action="/login">
+      </a>
+      <a class="login" id='topnav' href="/login">
         <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
-      </form>
+      </a>
       {{else}}
-      <form id='topnav' action="/">
+      <a id='topnav' href="/">
         <button type="submit" id="guest-movies" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Search Movies/TV</button>
-      </form>
-      <form class="login" id='topnav' action="/login">
+      </a>
+      <a class="login" id='topnav' href="/login">
         <button type="submit" id="login-btn" class="btn btn-info btn-md my-2 my-sm-0 ml-3">Login</button>
-      </form>
+      </a>
     {{/if}}
   {{/if}}
 </nav>
